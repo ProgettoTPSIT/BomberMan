@@ -6,11 +6,15 @@
 package bomberman;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 /**
@@ -18,6 +22,9 @@ import javafx.stage.Stage;
  * @author alex
  */
 public class BomberMan extends Application {
+	
+	
+    private Blocco[][] campo;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -37,18 +44,25 @@ public class BomberMan extends Application {
 		int blockDimension = 50;
 		int rows = width/blockDimension;
 		int columns = height/blockDimension;
+		campo = new Blocco[rows][columns];
+		
+		
 		
 		for (int i=0; i<rows; i++) {
 			for(int j=0; j<columns; j++) {
+				System.out.println(i + " " + j);
 				//TODO: stabilire se un blocco è distruttibile o meno, per ora sono tutti distrubbili
 				Blocco b = new Blocco(i*blockDimension, j*blockDimension, true);
+				
+				
 				root.getChildren().add(b);
+				campo[i][j] = b;
 			}
 		}
 		
-		Scene scene = new Scene(root, 600, 600);
+		Scene scene = new Scene(root, width, height);
 		
-		primaryStage.setTitle("Hello World!");
+		primaryStage.setTitle("Bomberman!");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
