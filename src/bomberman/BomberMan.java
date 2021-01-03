@@ -5,6 +5,7 @@
  */
 package bomberman;
 
+import java.util.Random;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -23,10 +24,9 @@ import javafx.stage.Stage;
  */
 public class BomberMan extends Application {
 	
+    static Blocco[][] campo;
+	static boolean partitaFinita;
 	
-    private Blocco[][] campo;
-	
-	@Override
 	public void start(Stage primaryStage) {
 		/*Button btn = new Button();
 		btn.setText("Say 'Hello World'");
@@ -38,21 +38,27 @@ public class BomberMan extends Application {
 			}
 		});*/
 		
+        //Server s=new Server(6789);
+        //aspetto che si connettano tutti i player
+		//s.attendi();
+		
+		//inizia la partita
+		
 		StackPane root = new StackPane();
-		int width = 600;
-		int height = 600;
+		int width = 650;
+		int height = 650;
 		int blockDimension = 50;
 		int rows = width/blockDimension;
 		int columns = height/blockDimension;
 		campo = new Blocco[rows][columns];
 		
 		
-		
+		Random r = new Random();
 		for (int i=0; i<rows; i++) {
 			for(int j=0; j<columns; j++) {
 				System.out.println(i + " " + j);
-				//TODO: stabilire se un blocco è distruttibile o meno, per ora sono tutti distrubbili
-				Blocco b = new Blocco(i*blockDimension, j*blockDimension, true);
+				boolean indistruttibile = ((i%2==1) && (j%2==1));
+				Blocco b = new Blocco(blockDimension, i*blockDimension, j*blockDimension, indistruttibile);
 				
 				
 				root.getChildren().add(b);

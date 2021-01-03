@@ -36,13 +36,15 @@ public class Blocco extends Elemento {
     
     Ability ability;
 
-    public Blocco(double x, double y, boolean distruttibile) {
+    public Blocco(int dimension, double x, double y, boolean distruttibile) {
 		
-		Rectangle border = new Rectangle(50, 50);
+		Rectangle border = new Rectangle(dimension, dimension);
 		
-		border.setFill(null);
+		border.setStroke(Color.BLACK);
 		if(distruttibile) {
-			border.setStroke(Color.BLACK);
+			border.setFill(Color.BLACK);
+		} else {
+			border.setFill(null);
 		}
 		getChildren().addAll(border);
 		
