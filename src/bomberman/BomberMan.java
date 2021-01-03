@@ -21,7 +21,7 @@ public class BomberMan extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		Button btn = new Button();
+		/*Button btn = new Button();
 		btn.setText("Say 'Hello World'");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -29,12 +29,24 @@ public class BomberMan extends Application {
 			public void handle(ActionEvent event) {
 				System.out.println("Hello World!");
 			}
-		});
+		});*/
 		
 		StackPane root = new StackPane();
-		root.getChildren().add(btn);
+		int width = 600;
+		int height = 600;
+		int blockDimension = 50;
+		int rows = width/blockDimension;
+		int columns = height/blockDimension;
 		
-		Scene scene = new Scene(root, 300, 250);
+		for (int i=0; i<rows; i++) {
+			for(int j=0; j<columns; j++) {
+				//TODO: stabilire se un blocco è distruttibile o meno, per ora sono tutti distrubbili
+				Blocco b = new Blocco(i*blockDimension, j*blockDimension, true);
+				root.getChildren().add(b);
+			}
+		}
+		
+		Scene scene = new Scene(root, 600, 600);
 		
 		primaryStage.setTitle("Hello World!");
 		primaryStage.setScene(scene);

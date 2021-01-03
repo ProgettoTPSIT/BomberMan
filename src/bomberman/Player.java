@@ -31,21 +31,21 @@ public class Player extends Elemento {
     
     
     public void moveUp() {
-        y++;
+		setTranslateY(getTranslateY()+50);
     }
     public void moveDown() {
-        y--;
+		setTranslateY(getTranslateY()-50);
     }
     public void moveRight() {
-        x++;
+		setTranslateX(getTranslateX()+50);
     }
     public void moveLeft() {
-        x--;
+		setTranslateX(getTranslateX()-50);
     }
 
     private void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+		setTranslateX(x);
+		setTranslateY(y);
     }
     
     

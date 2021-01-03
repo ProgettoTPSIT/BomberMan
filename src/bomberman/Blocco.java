@@ -17,7 +17,9 @@ public class Blocco extends Elemento {
     
     Ability ability;
 
-    public Blocco(boolean distruttibile) {
+    public Blocco(double x, double y, boolean distruttibile) {
+		setTranslateX(x);
+		setTranslateY(y);
         this.distruttibile = distruttibile;
         if(distruttibile) {
             ability = getRandomAbility();

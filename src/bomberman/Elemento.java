@@ -5,23 +5,19 @@
  */
 package bomberman;
 
+import javafx.scene.layout.StackPane;
+
 /**
  *
  * @author Alexander.Perathoner
  */
-public class Elemento {
-    int x, y;
+public class Elemento extends StackPane {
 
-    public int getX() {
-        return x;
+    public double getX() {
+        return getTranslateX();
     }
 
-    public int getY() {
-        return y;
+    public double getY() {
+        return getTranslateX();
     }
-
-   
-    
-    
-
 }
