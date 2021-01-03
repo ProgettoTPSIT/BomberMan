@@ -26,9 +26,7 @@ public class Player extends Elemento {
     }
     
     public void gotUpgrade(Ability ability) {
-        switch ability {
-            case Ability.RANGE
-        }
+        
     }
     
     
