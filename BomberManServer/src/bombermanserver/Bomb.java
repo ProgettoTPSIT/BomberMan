@@ -5,20 +5,12 @@
  */
 package bombermanserver;
 
-/**
- *
- * @author Alexander.Perathoner
- */
 public class Bomb extends Elemento {
     int range = 2;
 
-	public Bomb(int x, int y, int range) {
-		this.x = x;
-		this.y = y;
+	public Bomb(int range) {
 		this.range = range;
 	}
-	
-	
 
     public int getRange() {
         return range;

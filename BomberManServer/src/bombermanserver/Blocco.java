@@ -7,20 +7,13 @@ package bombermanserver;
 
 import java.util.Random;
 
-/**
- *
- * @author Alexander.Perathoner
- */
 public class Blocco extends Elemento {
     
     boolean distruttibile;
     
     Ability ability;
 
-    public Blocco(int x, int y, boolean distruttibile) {
-		this.x = x;
-		this.y = y;
-
+    public Blocco(boolean distruttibile) {
         this.distruttibile = distruttibile;
         if(distruttibile) {
             ability = getRandomAbility();
@@ -34,10 +27,5 @@ public class Blocco extends Elemento {
         Random rand = new Random();
         return allAbilities[rand.nextInt(allAbilities.length)]; //generiamo un numero casuale tra 0 e 2 compresi e prendiamo l'abilità corrispondente
     }
-    
-    
-    
-    
-    
     
 }

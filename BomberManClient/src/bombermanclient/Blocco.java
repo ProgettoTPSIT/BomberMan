@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bomberman;
+package bombermanclient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,39 +35,26 @@ public class Blocco extends Elemento {
     boolean distruttibile;
     
     Ability ability;
-
-    public Blocco(int dimension, double x, double y, boolean distruttibile) {
+/*
+    public Blocco(, double x, double y, boolean distruttibile) {
 		
-		Rectangle border = new Rectangle(dimension, dimension);
-		
-		border.setStroke(Color.BLACK);
-		if(distruttibile) {
-			border.setFill(Color.BLACK);
-		} else {
-			border.setFill(null);
-		}
-		getChildren().addAll(border);
-		
-		setAlignment(Pos.CENTER);
 		setTranslateX(x);
 		setTranslateY(y);
         this.distruttibile = distruttibile;
-        if(distruttibile) {
-            ability = getRandomAbility();
-        } else {
-            ability = Ability.NONE;
-        }
-    }
-    
-    private Ability getRandomAbility() {
-        Ability[] allAbilities = {Ability.NBOMBS, Ability.RANGE, Ability.SPEED, Ability.NONE, Ability.NONE, Ability.NONE}; //6 blocchi ogni 16 hanno un'abilità
-        Random rand = new Random();
-        return allAbilities[rand.nextInt(allAbilities.length)]; //generiamo un numero casuale tra 0 e 2 compresi e prendiamo l'abilità corrispondente
-    }
-    
-    
-    
-    
-    
+    }*/
+	
+	@Override
+	public void draw() {
+		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
+		border.setStroke(Color.BLACK);
+		setAlignment(Pos.CENTER);
+		if(distruttibile) {
+			border.setFill(Color.BLACK);
+		} else {
+			border.setFill(Color.GREY);
+		}
+		getChildren().addAll(border);
+	}
+	
     
 }

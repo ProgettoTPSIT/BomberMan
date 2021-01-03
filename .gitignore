@@ -1,3 +1,6 @@
 *.DS_STORE
 /BomberManServer/nbproject/private/
 /BomberManClient/nbproject/private/
+/BomberManClient/build/
+/BomberManClient/dist/
+/BomberManServer/build/

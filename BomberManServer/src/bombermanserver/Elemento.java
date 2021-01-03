@@ -4,17 +4,9 @@
  * and open the template in the editor.
  */
 package bombermanserver;
-/**
- *
- * @author Alexander.Perathoner
- */
-public class Elemento {
-	int x, y;
-    public double getX() {
-        return x;
-    }
 
-    public double getY() {
-        return y;
-    }
+import java.io.Serializable;
+
+public class Elemento implements Serializable {
+	
 }

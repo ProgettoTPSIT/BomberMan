@@ -5,10 +5,6 @@
  */
 package bombermanserver;
 
-/**
- *
- * @author Alexander.Perathoner
- */
 public enum Ability {
     SPEED, 
     RANGE,

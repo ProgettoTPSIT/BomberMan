@@ -5,28 +5,26 @@
  */
 package bombermanserver;
 
-import javafx.scene.paint.Color;
+import java.io.Serializable;
 
-/**
- *
- * @author Alexander.Perathoner
- */
-public class Player {
+public class Player implements Serializable {
     static int timeToSleep = 500;
     int speed;
     int nBombsLimit;
     int range;
 	int x, y;
+	int id;
 
     private int getTimeToSleep() {
         return timeToSleep-(speed*50);
     }
     
-    public Player(int x, int y) {
+    public Player(int x, int y, int id) {
 		this.x = x;
 		this.y = y;
         this.speed = 0;
         this.nBombsLimit = 1;
+		this.id = id;
     }
     
     public void upgrade(Ability ability) {

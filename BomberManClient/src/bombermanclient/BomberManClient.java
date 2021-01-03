@@ -6,12 +6,15 @@
 package bombermanclient;
 
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -19,46 +22,62 @@ import javafx.stage.Stage;
  *
  * @author alex
  */
+
 public class BomberManClient extends Application {
 	
+	static Campo campo;
+    private Pane root = new Pane();
+	static boolean vivo = true;
 	
+	@Override
 	public void start(Stage primaryStage) {
 		
-        //Server s=new Server(6789);
-        //aspetto che si connettano tutti i player
-		//s.attendi();
-		
-		//inizia la partita
-		
-		Scene scena = constructScene();
+        Client c=new Client("127.0.0.1", 6789);
 		
 		primaryStage.setTitle("Bomberman!");
-		primaryStage.setScene(scena);
+		primaryStage.setScene(new Scene(root, Constants.width, Constants.height));
 		primaryStage.show();
+		
+		
+		Thread t = new Thread(c);
+		t.start();
+		
+		
+		while(BomberManClient.vivo) {
+			root.getChildren().removeAll();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(BomberManClient.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			drawCampo();
+			drawPlayers();
+		}
+		System.out.println("Hai perso!");
 	}
 	
-	public Scene constructScene() {
-		StackPane root = new StackPane();
-		int width = 650;
-		int height = 650;
-		int blockDimension = 50;
-		int rows = width/blockDimension;
-		int columns = height/blockDimension;
-		campo = new Blocco[rows][columns];
-		
-		Random r = new Random();
+	public void drawCampo() {
+		if (campo == null) { return; }
+			System.out.println("Trovato campo!");
+		int rows = campo.griglia.length;
+		int columns = campo.griglia[0].length;
 		for (int i=0; i<rows; i++) {
 			for(int j=0; j<columns; j++) {
-				System.out.println(i + " " + j);
-				boolean indistruttibile = ((i%2==1) && (j%2==1));
-				Blocco b = new Blocco(blockDimension, i*blockDimension, j*blockDimension, indistruttibile);
-				
-				
-				root.getChildren().add(b);
-				campo[i][j] = b;
+				Elemento item = campo.griglia[i][j];
+				item.draw();
+				item.setTranslateX(i*Constants.blockDimension);
+				item.setTranslateY(j*Constants.blockDimension);
+				root.getChildren().add(campo.griglia[i][j]);
 			}
 		}
-		return new Scene(root, width, height);
+	}
+	
+	public void drawPlayers() {
+		if (campo == null) { return; }
+		for(Player p : campo.player) {
+			p.draw();
+			root.getChildren().add(p);
+		}
 	}
 
 	/**
