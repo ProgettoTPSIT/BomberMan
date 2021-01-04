@@ -17,16 +17,18 @@ import javafx.scene.shape.Rectangle;
 public class Bomb extends Elemento {
     int range = 2;
 
-	/*public Bomb(int x, int y, int range) {
-		setTranslateX(x);
-		setTranslateY(y);
+	public Bomb(int range) {
 		this.range = range;
-	}*/
+	}
 
     public int getRange() {
         return range;
     }
-	
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
 	@Override
 	public void draw() {
 		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
