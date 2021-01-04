@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bombermanclient;
+package bombermanserver;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
@@ -30,14 +30,14 @@ public class Player extends StackPane {
     private int getTimeToSleep() {
         return timeToSleep-(speed*50);
     }
-    
+
     public Player(int x, int y) {
 		setTranslateX(x);
 		setTranslateY(y);
         this.speed = 0;
         this.nBombsLimit = 1;
-    }
-	
+	}
+    
 	public void draw() {
 		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
 		border.setStroke(Color.BLACK);

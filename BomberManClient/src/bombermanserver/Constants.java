@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bombermanclient;
+package bombermanserver;
 
 public class Constants {
-	static int width = 650;
-	static int height = 650;
-	static int blockDimension = 50; 
+	public static int width = 650;
+	public static int height = 650;
+	public static int blockDimension = 50; 
 }

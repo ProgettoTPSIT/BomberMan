@@ -20,21 +20,23 @@ public class Server {
     }
     
     public void attendi(int player) {
-        System.out.println("Server in ascolto sulla porta "+porta);
+        System.out.println("Server in ascolto sulla porta " + porta);
         
          try {
                 //il server si mette in ascolto
                 socketServer=new ServerSocket(porta);
                 int playerConnessi = 0;
                 while (playerConnessi < player) {
+					System.out.println("Aspetto che un client chieda di connettersi...");
                     socketClient=socketServer.accept();
                     System.out.println("Client Connesso: "+socketClient.getRemoteSocketAddress());
                     Thread thread=new Thread(new ServerThread(socketClient, playerConnessi));
                     thread.start();
+					System.out.println("Fatto partire il thread");
 					playerConnessi++;
                 }
                
-               
+				System.out.println("Pronto per far iniziare la partita!");
                 
             } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);

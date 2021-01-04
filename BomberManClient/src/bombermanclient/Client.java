@@ -5,12 +5,14 @@
  */
 package bombermanclient;
 
+import bombermanserver.Campo;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -26,7 +28,7 @@ public class Client implements Runnable {
 	private String stringaDaInviare; 
 	
 	private ObjectInputStream objectInputStream;
-	private DataOutputStream outVersoServer;
+	private ObjectOutputStream objectOutputStream;
 	private Socket miosocket;
 	
 	public Client(String ind, int port){
@@ -38,8 +40,8 @@ public class Client implements Runnable {
 	public void connetti() {
 		try {
 			miosocket=new Socket(indirizzoServer,porta);
-			outVersoServer= new DataOutputStream(miosocket.getOutputStream());
-			objectInputStream= new ObjectInputStream(miosocket.getInputStream());
+			objectOutputStream = new ObjectOutputStream(miosocket.getOutputStream());
+			objectInputStream = new ObjectInputStream(miosocket.getInputStream());
 		} catch (IOException ex) {
 			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -56,26 +58,39 @@ public class Client implements Runnable {
 		}
 	}
 	
+	public void inviaComando(int n) {
+		try {
+			objectOutputStream.writeObject(n);
+			System.out.println("Inviato n " + n);
+		} catch (IOException ex) {
+			System.out.println("OPS ERRORE IN INVIA COMANDO");
+		}
+	} 
+	
 	public void iniziaAggiornamentoCampo() {
 		do {
+			//ottieni campo aggiornato
 			try {
-				System.out.println("Chiedo campo");
-				outVersoServer.writeBytes(" \n");
-				BomberManClient.campo = (Campo)objectInputStream.readObject();
-				if(BomberManClient.campo != null) {
-					System.out.println("Campo ottenuto! " + BomberManClient.campo.griglia + " " + BomberManClient.campo.player.length);
-				}
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException ex) {
-					Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+				//System.out.println((int)objectInputStream.readObject());
+				AggiornaClient.campo = (Campo) objectInputStream.readObject();
+				System.out.println("Campo ottenuto");
+				if(AggiornaClient.campo != null) {
+					System.out.println("Campo ottenuto! " + AggiornaClient.campo.griglia + " " + AggiornaClient.campo.player.length);
 				}
 			} catch (IOException ex) {
 				System.out.println("Connessione persa");
-				break;
 			} catch (ClassNotFoundException ex) {
 				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 			}
+			
+			//aspetta
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			//invia aggiornamenti al server
+			inviaComando(0);
 		} while(playerIsAlive());
 		
 		try{
@@ -87,18 +102,22 @@ public class Client implements Runnable {
 	}
 	
 	private boolean playerIsAlive() {
-		if (BomberManClient.campo == null) { //campo non ancora caricato
+		if (AggiornaClient.campo == null) { //campo non ancora caricato
 			return true;
 		}
-		return BomberManClient.campo.player[playerID] != null;
+		return AggiornaClient.campo.player[playerID] != null;
 	}
 
 	@Override
 	public void run() {
-		System.out.println("Sto comunicando!");
+		System.out.println("Mi connetto...");
 		connetti();
 		System.out.println("Chiedo ID");
 		ottieniID();
+		
+		System.out.println("Invio comando");
+		inviaComando(0);
+		System.out.println("Chiedo campo");
 		
 		iniziaAggiornamentoCampo();
 	}

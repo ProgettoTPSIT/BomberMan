@@ -3,16 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bombermanclient;
+package bombermanserver;
 
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-/**
- *
- * @author alex
- */
 
 public class Bomb extends Elemento {
     int range = 2;

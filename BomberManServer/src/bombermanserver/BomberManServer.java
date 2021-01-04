@@ -19,9 +19,9 @@ public class BomberManServer {
 	public static void main(String[] args) {
 		Server s=new Server(6789);
         //aspetto che si connettano tutti i player
-		int nPlayer = 2;
+		int nPlayer = 1;
 		s.attendi(nPlayer);
-		System.out.println(nPlayer + " si sono connessi! Inizia la partita!");
+		System.out.println(nPlayer + " player si sono connessi! Inizia la partita!");
 		campo = new Campo(13, 13, nPlayer);
 		campo.setGriglia(costruisciCampo());
 		System.out.println("Costruito il campo");
@@ -29,25 +29,25 @@ public class BomberManServer {
 		System.out.println("Posizionati i player");
 	}
 	
-	static void aggiornaPlayer(int id, String azione) {
+	static void aggiornaPlayer(int id, int azione) {
 		switch(azione) {
-			case "1":
+			case 1:
 				campo.movePlayerUp(id);
 				break;
-			case "2":
+			case 2:
 				campo.movePlayerDown(id);
 				break;
-			case "3":
+			case 3:
 				campo.movePlayerRight(id);
 				break;
-			case "4":
+			case 4:
 				campo.movePlayerLeft(id);
 				break;
-			case "5":
+			case 5:
 				campo.piazzaBomba(id);
 				break;
 			default:
-				System.out.println("OPS");
+				System.out.println("Azione nulla - Ignoro...");
 		}
 	}
 	
