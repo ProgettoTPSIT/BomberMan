@@ -5,7 +5,6 @@
  */
 package bombermanclient;
 
-import bombermanserver.Constants;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -23,8 +22,6 @@ public class BomberManClient extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		
-		
 		primaryStage.setTitle("Bomberman!");
 		primaryStage.setScene(new Scene(root, Constants.width, Constants.height));
 		primaryStage.show();

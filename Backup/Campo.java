@@ -7,17 +7,55 @@ package bombermanserver;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 class Campo implements Serializable { //Serializable necessario per inviare l'oggetto con writeObject ai client
 	Elemento[][] griglia;
 	Player[] player;
 	
-	public Campo(int x, int y, int nPlayer) {
-		griglia = new Blocco[x][y];
+	public Campo(int rows, int columns, int nPlayer) {
+		griglia = new Elemento[rows][columns];
 		player = new Player[nPlayer];
+		/*
+		Random r = new Random();
+		for(int i=0; i<rows; i++) {
+			for(int j=0; j<columns; j++) {
+				Elemento b = new Pavimento();
+				//tutti i blocchi che si trovano su una colonna e riga dispari devono essere indistruttibili
+				if ((i%2==1) && (j%2==1)) {
+					b = new Blocco(true);
+				} else { //se non mi trovo sull'intersezione
+					if(r.nextDouble() < 0.66) { //nel 66% dei casi aggiungo un blocco distruttibile
+						b = new Blocco(false); 
+					}
+				}
+				griglia[i][j] = b;
+			}
+		}
+		posizionaPlayer();*/
 	}
 
-	void setGriglia(Blocco[][] campo) {
+	@Override
+	public String toString() {
+		String str =  "Campo{" + "griglia(" + griglia.length +"," +  griglia[0].length+ ")=[";
+		for(int i=0;i<griglia.length;i++) {
+			str += "[";
+			for(int j=0;j<griglia[0].length;j++) {
+				str += griglia[i][j].toString() + ", ";
+			}
+			str += "]";
+		}
+		str += "], player=";
+		for(int i=0;i<player.length;i++) {
+			str += player[i].toString() + ", ";
+		}
+		
+		str += '}';
+		return str;
+	}
+	
+	
+	void setGriglia(Elemento[][] campo) {
 		griglia = campo;
 	}	
 	
@@ -33,7 +71,7 @@ class Campo implements Serializable { //Serializable necessario per inviare l'og
 		if(elem != null) {
 			if(elem.getClass() == Blocco.class) {
 				if(((Blocco) elem).distruttibile) {
-					griglia[x][y] = null;
+					griglia[x][y] = new Pavimento();
 					a = ((Blocco) elem).ability;
 				}
 			}
@@ -90,7 +128,7 @@ class Campo implements Serializable { //Serializable necessario per inviare l'og
 		if(p.y>=griglia[0].length) { //verifichiamo se si trova già sul bordo
 			return;
 		}
-		if(griglia[p.x][p.y+1] == null) { //verifichiamo se dove vuole andare si trova un blocco
+		if(griglia[p.x][p.y+1].getClass() == Pavimento.class) { //verifichiamo se dove vuole andare si trova un blocco
 			player[id].moveUp(); //altrimenti lo lasciamo muovere
 		}
 	}
@@ -100,7 +138,7 @@ class Campo implements Serializable { //Serializable necessario per inviare l'og
 		if(p.y==0) {
 			return;
 		}
-		if(griglia[p.x][p.y-1] == null) {
+		if(griglia[p.x][p.y-1].getClass() == Pavimento.class) {
 			player[id].moveUp();
 		}
 	}
@@ -110,7 +148,7 @@ class Campo implements Serializable { //Serializable necessario per inviare l'og
 		if(p.x>=griglia.length) {
 			return;
 		}
-		if(griglia[p.x+1][p.y] == null) {
+		if(griglia[p.x+1][p.y].getClass() == Pavimento.class) {
 			player[id].moveUp();
 		}
 	}
@@ -120,7 +158,7 @@ class Campo implements Serializable { //Serializable necessario per inviare l'og
 		if(p.x==0) {
 			return;
 		}
-		if(griglia[p.x-1][p.y] == null) {
+		if(griglia[p.x-1][p.y].getClass() == Pavimento.class) {
 			player[id].moveUp();
 		}
 	}

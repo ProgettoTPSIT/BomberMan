@@ -6,6 +6,7 @@
 package bombermanserver;
 
 import java.util.Random;
+import bomberman.Campo;
 import javafx.scene.paint.Color;
 
 public class BomberManServer {
@@ -23,15 +24,12 @@ public class BomberManServer {
 		s.attendi(nPlayer);
 		System.out.println(nPlayer + " player si sono connessi! Inizia la partita!");
 		campo = new Campo(13, 13, nPlayer);
-		campo.setGriglia(costruisciCampo());
 		System.out.println("Costruito il campo");
-		campo.posizionaPlayer();
-		System.out.println("Posizionati i player");
 	}
 	
 	static void aggiornaPlayer(int id, int azione) {
 		switch(azione) {
-			case 1:
+			/*case 1:
 				campo.movePlayerUp(id);
 				break;
 			case 2:
@@ -45,34 +43,10 @@ public class BomberManServer {
 				break;
 			case 5:
 				campo.piazzaBomba(id);
-				break;
+				break;*/
 			default:
 				System.out.println("Azione nulla - Ignoro...");
 		}
-	}
-	
-	static private Blocco[][] costruisciCampo() {
-		int rows = 13;
-		int columns = 13;
-		Blocco[][] campo = new Blocco[rows][columns];
-		
-		Random r = new Random();
-		for(int i=0; i<rows; i++) {
-			for(int j=0; j<columns; j++) {
-				Blocco b = null;
-				//tutti i blocchi che si trovano su una colonna e riga dispari devono essere indistruttibili
-				if ((i%2==1) && (j%2==1)) {
-					b = new Blocco(true);
-				} else { //se non mi trovo sull'intersezione
-					if(r.nextDouble() < 0.66) { //nel 66% dei casi aggiungo un blocco distruttibile
-						b = new Blocco(false); 
-					}
-				}
-				
-				campo[i][j] = b;
-			}
-		}
-		return campo;
 	}
 	
 }

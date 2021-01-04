@@ -8,6 +8,7 @@ package bombermanclient;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.layout.Pane;
+import bomberman.Campo;
 
 /**
  *
@@ -16,7 +17,7 @@ import javafx.scene.layout.Pane;
 
 public class AggiornaClient implements Runnable {
 	static Pane rootView;
-	static bombermanserver.Campo campo;
+	static Campo campo;
 	
 	public AggiornaClient(Pane root) {
 		rootView = root;

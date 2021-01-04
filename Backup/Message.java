@@ -3,15 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bombermanserver;
 
 import java.io.Serializable;
-import javafx.scene.layout.StackPane;
 
-public class Elemento extends StackPane implements Serializable {
+/**
+ *
+ * @author alex
+ */
+public class Message implements Serializable {
+	String str = "";
+	NewClass c;
 	
-	public void draw() {
-		System.out.println("WHOPS");
+	public Message(String s) {
+		str = s;
+	}
+	
+	public String getString() {
+		return str;
 	}
 }

@@ -5,7 +5,7 @@
  */
 package bombermanclient;
 
-import bombermanserver.Campo;
+import bomberman.Campo;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -71,12 +71,14 @@ public class Client implements Runnable {
 		do {
 			//ottieni campo aggiornato
 			try {
-				//System.out.println((int)objectInputStream.readObject());
-				AggiornaClient.campo = (Campo) objectInputStream.readObject();
+				Object c = objectInputStream.readObject();
+				
+				System.out.println(c);
+				System.out.println(c.getClass());
+				System.out.println("Messaggio ricevuto: " + ((Campo)c));
+				//AggiornaClient.campo = (Campo) objectInputStream.readObject();
 				System.out.println("Campo ottenuto");
-				if(AggiornaClient.campo != null) {
-					System.out.println("Campo ottenuto! " + AggiornaClient.campo.griglia + " " + AggiornaClient.campo.player.length);
-				}
+				
 			} catch (IOException ex) {
 				System.out.println("Connessione persa");
 			} catch (ClassNotFoundException ex) {
@@ -105,7 +107,8 @@ public class Client implements Runnable {
 		if (AggiornaClient.campo == null) { //campo non ancora caricato
 			return true;
 		}
-		return AggiornaClient.campo.player[playerID] != null;
+		//return AggiornaClient.campo.player[playerID] != null;
+		return true;
 	}
 
 	@Override

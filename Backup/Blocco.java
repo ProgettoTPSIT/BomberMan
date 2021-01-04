@@ -5,13 +5,17 @@
  */
 package bombermanserver;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Blocco extends Elemento {
-    
+public class Blocco extends Elemento implements Serializable {
     boolean distruttibile;
-    
     Ability ability;
+
+	@Override
+	public String toString() {
+		return "Blocco{" + "distruttibile=" + distruttibile + ", ability=" + ability + '}';
+	}
 
     public Blocco(boolean distruttibile) {
         this.distruttibile = distruttibile;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bombermanserver;
+package bomberman;
 
-public class Constants {
-	public static int width = 650;
-	public static int height = 650;
-	public static int blockDimension = 50; 
+import java.io.Serializable;
+
+public class Pavimento extends Elemento implements Serializable {
+
 }

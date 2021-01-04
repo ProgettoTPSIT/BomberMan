@@ -56,14 +56,15 @@ public class ServerThread implements Runnable {
 				System.out.println("Ricevuto il comando " + comandoDalClient);
 				
 				BomberManServer.aggiornaPlayer(id, comandoDalClient);
-				//objectOutputStream.writeObject(2);
+				System.out.println("BomberManServer.campo " + BomberManServer.campo + " - " +BomberManServer.campo.getClass());
 				objectOutputStream.writeObject(BomberManServer.campo); //invia il campo al client
+				
 				System.out.println("Inviato il campo");
 			} catch (IOException ex) {
 				System.out.println("Il client ha chiuso la connessione con ili server!");
 				error = true;
 			} catch (NullPointerException ex) {
-				System.out.println("Persa la connessione con il client");
+				System.out.println("ERROR: Persa la connessione con il client");
 				error = true;
 			} catch (ClassNotFoundException ex) {
 				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
