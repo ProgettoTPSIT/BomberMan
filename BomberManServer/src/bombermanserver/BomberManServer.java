@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 public class BomberManServer {
 
     static Campo campo;
+	static boolean partitaIniziata = false;
 	static boolean partitaFinita = false;
 	
 	/**
@@ -20,8 +21,9 @@ public class BomberManServer {
 	public static void main(String[] args) {
 		Server s=new Server(6789);
         //aspetto che si connettano tutti i player
-		int nPlayer = 1;
+		int nPlayer = 2;
 		s.attendi(nPlayer);
+		partitaIniziata = true;
 		System.out.println(nPlayer + " player si sono connessi! Inizia la partita!");
 		campo = new Campo(13, 13, nPlayer);
 		System.out.println("Costruito il campo");
@@ -29,7 +31,7 @@ public class BomberManServer {
 	
 	static void aggiornaPlayer(int id, int azione) {
 		switch(azione) {
-			/*case 1:
+			case 1:
 				campo.movePlayerUp(id);
 				break;
 			case 2:
@@ -43,7 +45,7 @@ public class BomberManServer {
 				break;
 			case 5:
 				campo.piazzaBomba(id);
-				break;*/
+				break;
 			default:
 				System.out.println("Azione nulla - Ignoro...");
 		}

@@ -51,12 +51,19 @@ public class ServerThread implements Runnable {
 		boolean error = false;
 		do {
 			try {
+				Thread.sleep(100);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} while(!BomberManServer.partitaIniziata);
+		do {
+			try {
 				System.out.println("Aspetto comando dal client...");
 				int comandoDalClient = (int)objectInputStream.readObject(); //ottiene aggiornamenti player
 				System.out.println("Ricevuto il comando " + comandoDalClient);
 				
 				BomberManServer.aggiornaPlayer(id, comandoDalClient);
-				System.out.println("BomberManServer.campo " + BomberManServer.campo + " - " +BomberManServer.campo.getClass());
+				System.out.println("Invio il campo a " + id);
 				objectOutputStream.writeObject(BomberManServer.campo); //invia il campo al client
 				
 				System.out.println("Inviato il campo");
