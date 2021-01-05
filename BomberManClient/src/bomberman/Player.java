@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author alex
  */
-class Player implements Serializable {
+public class Player implements Serializable {
     int timeToSleep = 500;
     int speed;
     int nBombsLimit;
@@ -40,7 +40,30 @@ class Player implements Serializable {
 				break;
 		}
 	}
-	
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public int getnBombsLimit() {
+		return nBombsLimit;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getId() {
+		return id;
+	}
 	
 	public void moveUp() {
 		y++;

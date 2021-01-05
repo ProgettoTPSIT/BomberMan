@@ -5,6 +5,10 @@
  */
 package bombermanclient;
 
+import bomberman.Campo;
+import bombermanclient.UI.Drawer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -17,6 +21,7 @@ import javafx.stage.Stage;
 
 public class BomberManClient extends Application {
 	
+	static Campo campo;
     private Pane root = new Pane();
 	static boolean vivo = true;
 	
@@ -30,9 +35,18 @@ public class BomberManClient extends Application {
 		Thread t = new Thread(c);
 		t.start();
 		
-		AggiornaClient ac = new AggiornaClient(root);
-		Thread t1 = new Thread(ac);
-		t1.start();
+		
+		while(BomberManClient.vivo) {
+			root.getChildren().removeAll();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(BomberManClient.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			if(campo != null) {
+				root.getChildren().add(Drawer.drawCampo(campo));
+			}
+		}
 	}
 	
 

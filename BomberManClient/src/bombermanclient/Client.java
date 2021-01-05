@@ -71,7 +71,7 @@ public class Client implements Runnable {
 		do {
 			//ottieni campo aggiornato
 			try {
-				AggiornaClient.campo = (Campo) objectInputStream.readObject();
+				BomberManClient.campo = (Campo) objectInputStream.readObject();
 				System.out.println("Campo ottenuto");
 				
 			} catch (IOException ex) {
@@ -99,7 +99,7 @@ public class Client implements Runnable {
 	}
 	
 	private boolean playerIsAlive() {
-		if (AggiornaClient.campo == null) { //campo non ancora caricato
+		if (BomberManClient.campo == null) { //campo non ancora caricato
 			return true;
 		}
 		//return AggiornaClient.campo.player[playerID] != null;

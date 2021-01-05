@@ -26,5 +26,12 @@ public class Blocco extends Elemento implements Serializable {
         Random rand = new Random();
         return allAbilities[rand.nextInt(allAbilities.length)]; //generiamo un numero casuale tra 0 e 2 compresi e prendiamo l'abilità corrispondente
     }
+	
+	public boolean getDistruttibile() {
+		return distruttibile;
+	}
     
+	public Ability getAbility() {
+		return ability;
+	}
 }

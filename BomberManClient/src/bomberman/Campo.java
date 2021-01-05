@@ -32,12 +32,21 @@ public class Campo implements Serializable { //Serializable necessario per invia
 				griglia[i][j] = b;
 			}
 		}
-		//posizionaPlayer();
+		posizionaPlayer();
 	}
 	
-	void setGriglia(Elemento[][] campo) {
+	
+	public void setGriglia(Elemento[][] campo) {
 		griglia = campo;
-	}	
+	}
+	
+	public Elemento[][] getGriglia() {
+		return griglia;
+	}
+	
+	public Player[] getPlayers() {
+		return player;
+	}
 	
 	Ability distruggiBlocco(int x, int y) {
 		if(x<0 || x>=griglia.length) {
