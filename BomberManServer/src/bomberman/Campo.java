@@ -32,7 +32,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 				griglia[i][j] = b;
 			}
 		}
-		//posizionaPlayer();
+		posizionaPlayer();
 	}
 	
 	

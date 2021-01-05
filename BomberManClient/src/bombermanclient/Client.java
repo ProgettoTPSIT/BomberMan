@@ -71,12 +71,7 @@ public class Client implements Runnable {
 		do {
 			//ottieni campo aggiornato
 			try {
-				Object c = objectInputStream.readObject();
-				
-				System.out.println(c);
-				System.out.println(c.getClass());
-				System.out.println("Messaggio ricevuto: " + ((Campo)c));
-				//AggiornaClient.campo = (Campo) objectInputStream.readObject();
+				AggiornaClient.campo = (Campo) objectInputStream.readObject();
 				System.out.println("Campo ottenuto");
 				
 			} catch (IOException ex) {
