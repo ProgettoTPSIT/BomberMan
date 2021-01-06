@@ -25,15 +25,19 @@ public class BomberManClient extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Bomberman!");
-		Sandbox.setupScene();
-        Scene s = Sandbox.getScene();
-        primaryStage.setScene(s);
-		primaryStage.show();
+            //creazione finestra di gioco con titolo "Bomberman"
+            primaryStage.setTitle("Bomberman!");
+            //settaggio scena di gioco
+            Sandbox.setupScene();
+            //creazione oggetto s contenente la scena di gioco
+            Scene s = Sandbox.getScene();
+            primaryStage.setScene(s);
+            primaryStage.show();
 		
-        Client c=new Client("127.0.0.1", 6789);
-		Thread t = new Thread(c);
-		t.start();
+            //creazione client 
+            Client c=new Client("127.0.0.1", 6789);
+            Thread t = new Thread(c);
+            t.start();
 	}
 	
 
@@ -41,7 +45,8 @@ public class BomberManClient extends Application {
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
-		launch(args);
+            //lancio main client
+            launch(args);
 	}
 	
 }

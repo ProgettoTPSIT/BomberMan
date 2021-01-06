@@ -9,9 +9,9 @@ package bombermanclient;
  *
  * @author alex
  */
-
+//costanti del campo da gioco
 public class Constants {
 	public static int width = 650;
 	public static int height = 650;
-	public static int blockDimension = 50; 
+	public static int blockDimension = 50; //grandezza dei blocchi
 }
