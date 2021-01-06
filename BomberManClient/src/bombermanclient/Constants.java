@@ -9,7 +9,7 @@ package bombermanclient;
  *
  * @author alex
  */
-
+//costanti del campo da gioco
 public class Constants {
 	public static int width = 989;
 	public static int height = 713;

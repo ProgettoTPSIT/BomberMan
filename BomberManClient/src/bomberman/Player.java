@@ -20,6 +20,7 @@ public class Player implements Serializable {
 		p = new Point(x, y);
 		this.id = id;
 	}
+    //costruttore player
 
 	public int getX() {
 		return p.x;

@@ -13,16 +13,13 @@ import javafx.scene.paint.Color;
 public class BomberManServer {
 
     static Campo campo;
-	static boolean partitaIniziata = false;
-	static boolean partitaFinita = false;
+    static boolean partitaIniziata = false;
+    static boolean partitaFinita = false;
 	
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
-		Server s=new Server(6789);
+    public static void main(String[] args) {
+        Server s=new Server(6789);
         //aspetto che si connettano tutti i player
-		int nPlayer = 4;
+		int nPlayer = 2;
 		campo = new Campo(43, 31, nPlayer);
 		//printCampo(campo);
 		//System.out.println("Costruito il campo");

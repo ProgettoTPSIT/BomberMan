@@ -19,11 +19,7 @@ import javafx.scene.paint.Color;
  * @author alex
  */
 public class Sandbox {
-	static Campo campo;
-static Player[] players;
-	public Sandbox() {
-	}
-
+    static Campo campo;
     static Scene s;
     static Group root;
     static Canvas c;
@@ -31,11 +27,13 @@ static Player[] players;
     private static boolean sceneStarted = false;
 	
     private static void init() {
-		System.out.println("Init Sandbox....");
+	System.out.println("Init Sandbox....");
         root = new Group();
+        //creazione del campo da gioco di dimensioni costanti
         s = new Scene(root, Constants.width, Constants.height);
         c = new Canvas(Constants.width, Constants.height);
         root.getChildren().add(c);
+        //creazione grafica del campo da gioco
         gc = c.getGraphicsContext2D();
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(2);
@@ -63,16 +61,17 @@ static Player[] players;
 		return true;
 	}
 	
+        //restituisce i player in un array
 	public static Player[] getPlayers() {
-		return campo.getPlayers();
+            return campo.getPlayers();
 	}
 	
-	
+	//setta la finstra di gioco
 	public static void setupScene() {
-        if(!sceneStarted){
-            init();
-            sceneStarted=true;
-        }
+            if(!sceneStarted){
+                init();
+                sceneStarted=true;
+            }
 	}
 	
     public static Scene getScene() {

@@ -19,14 +19,15 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		commonInit(c.griglia.length, c.griglia[0].length);
 	}
 	
-	static int x = 5;
 	public Campo(int rows, int columns, Player[] players) {
 		player = players;
 		commonInit(rows, columns);
 	}
 	
+    //creazione campo da gioco
 	public Campo(int rows, int columns, int nPlayer) {
-		player = new Player[nPlayer];
+		player = new Player[nPlayer]; //istanziozione dei player (4)
+		//creazione del campo di x colonne e x righe
 		commonInit(rows, columns);
 		posizionaPlayer();
 	}
@@ -42,10 +43,11 @@ public class Campo implements Serializable { //Serializable necessario per invia
 					b = new Blocco(false);
 					//System.out.println("Blocco: " + i + " " + j);
 				} else { //se non mi trovo sull'intersezione
-					if(r.nextDouble() < 0.3) { //nel 50% dei casi aggiungo un blocco distruttibile
+					if(r.nextDouble() < 0.22) { //nel 22% dei casi aggiungo un blocco distruttibile
 						b = new Blocco(true); 
 					}
 				}
+                                //aggiunta alla grigrla del blocco
 				griglia[i][j] = b;
 			}
 		}
@@ -69,6 +71,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		return player;
 	}
 	
+                //controllo che il blocco da distruggere non sia oltre o il limite della mappa
 	void distruggiBlocco(int x, int y) {
 		if(x<0 || x>=griglia.length) {
 			return;
@@ -76,10 +79,12 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		if(y<0 || y>=griglia[0].length) {
 			return;
 		}
+                //creo un elemento e lo istanzio con le corrdinate del blocco da distuggere
 		Elemento elem = griglia[x][y];
 		if(elem.getClass() == Blocco.class) {
 			if(((Blocco) elem).distruttibile) {
 				griglia[x][y] = new Pavimento();
+                        //controllo che ci sia un blocco
 			}
 		}
 	}
@@ -151,17 +156,21 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		System.out.println("Posizione player "  + p.getX() + " " + (p.getY()));
 	}
 	
+        //metodo posizionamento player ad inizio game
 	public void posizionaPlayer() {
-		int[][] angoli = {{0,0},{0,12},{12,12},{12,0}};
+                //istanziamo in un varray le coordinate iniziali dove i player si creeranno
+		int[][] angoli = {{0,0},{0,griglia[0].length-1},{griglia.length-1,griglia[0].length-1},{griglia.length-1,0}};
 		for(int n=0;n<player.length;n++) {
-			//rimuoviaom i blocchi distruttibili intorno ai player
+			//rimuoviamo i blocchi distruttibili intorno ai player
 			int x = angoli[n][0];
 			int y = angoli[n][1];
 			for(int i=-1;i<2;i++) {
+                                //distruzione blocchi attorno ai punti di creazione dei player
 				for(int j=-1;j<2;j++) {
 					distruggiBlocco(x+i, y+j);
 				}
 			}
+                        //creazione player
 			player[n] = new Player(x, y, n);
 		}
 	}

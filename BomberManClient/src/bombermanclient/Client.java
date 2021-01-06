@@ -14,7 +14,11 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//<<<<<<< HEAD
 
+
+//>>>>>>> main
+//creazione classe client di default
 public class Client implements Runnable {
 	private String indirizzoServer;
 	private int porta;
@@ -24,29 +28,31 @@ public class Client implements Runnable {
 	private String stringaDaInviare; 
 	
 	private ObjectInputStream objectInputStream;
-	private ObjectOutputStream objectOutputStream;
+	private ObjectOutputStream objectOutputStream; //permette l'invio di oggetti al server
 	private Socket miosocket;
 	
 	public Client(String ind, int port){
-		indirizzoServer=ind;
-		porta=port;
-		input=new BufferedReader (new InputStreamReader (System.in));
+            indirizzoServer=ind;
+            porta=port;
+            input=new BufferedReader (new InputStreamReader (System.in));
 	}
-	
+        
+	//connessione client al server
 	public void connetti() {
-		try {
-			miosocket=new Socket(indirizzoServer,porta);
-			objectOutputStream = new ObjectOutputStream(miosocket.getOutputStream());
-			objectInputStream = new ObjectInputStream(miosocket.getInputStream());
-		} catch (IOException ex) {
-			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-		}
+            try {
+                miosocket=new Socket(indirizzoServer,porta);
+                objectOutputStream = new ObjectOutputStream(miosocket.getOutputStream());
+                objectInputStream = new ObjectInputStream(miosocket.getInputStream());
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 	
+        //metodo ottenimento id
 	public void ottieniID() {
 		try {
-			playerID = (int)objectInputStream.readObject();
-			//System.out.println("Ho ottenuto iD");
+                    playerID = (int)objectInputStream.readObject();
+                    //System.out.println("Ho ottenuto iD");
 		} catch (IOException ex) {
 			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (ClassNotFoundException ex) {
@@ -54,6 +60,7 @@ public class Client implements Runnable {
 		}
 	}
 	
+        //metodo di invio del comando
 	public void inviaComando(int n) {
 		try {
 			objectOutputStream.writeObject(n);
@@ -61,15 +68,19 @@ public class Client implements Runnable {
 			System.out.println("ERRORE in invia comando");
 		}
 	}
+                //writeObject permette di inviare un oggetto al server
 	
+        //metodo di stampa del campo
 	public void printCampo(Campo c) {
+                //creazione matrice griglia
 		Elemento[][] griglia = c.getGriglia();
 		System.out.println("GRIGLIA");
+                //creazione del campo con i 2 for
 		for(int i=0; i<griglia.length; i++) {
-			for(int j=0;j<griglia[0].length; j++) {
-				System.out.print("{" + griglia[i][j].getClass() + "}");
-			}
-			System.out.println("");
+                    for(int j=0;j<griglia[0].length; j++) {
+                        System.out.print("{" + griglia[i][j].getClass() + "}");
+                    }
+                    System.out.println("");
 		}
 		System.out.println("FINE GRIGLIA");
 	}
@@ -123,6 +134,7 @@ public class Client implements Runnable {
 	}
 
 	@Override
+        //run del client
 	public void run() {
 		System.out.println("Mi connetto...");
 		connetti();

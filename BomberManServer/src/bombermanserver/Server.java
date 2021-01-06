@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//classe server default
 public class Server {
     private ServerSocket socketServer;
     private Socket socketClient;
@@ -35,6 +36,7 @@ public class Server {
 					System.out.println("Fatto partire il thread");
 					playerConnessi++;
                 }
+                //ad ogni richiesta di connessione da parte del client c'è la creazione di un nuovo thread che si connette al serverThread
             } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }

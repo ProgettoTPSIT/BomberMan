@@ -11,6 +11,7 @@ import java.util.Random;
 public class Blocco extends Elemento implements Serializable {
     boolean distruttibile;
 
+    //costruttore del blocco dove diciamo al programma se è distruttibile o meno
     public Blocco(boolean distruttibile) {
         this.distruttibile = distruttibile;
     }

@@ -19,23 +19,25 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//classe serverThread default
 public class ServerThread implements Runnable {
-	private int id;
-	private Socket client;
-	private ObjectOutputStream objectOutputStream;
-	private ObjectInputStream objectInputStream;
+    private int id;
+    private Socket client;
+    private ObjectOutputStream objectOutputStream;
+    private ObjectInputStream objectInputStream;
 
-	public ServerThread(Socket client, int id) {
-		try {
-			this.client = client;
-			this.id = id;
-			objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-			objectInputStream = new ObjectInputStream(client.getInputStream());
-		} catch (IOException ex) {
-			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
+    public ServerThread(Socket client, int id) {
+        try {
+            this.client = client;
+            this.id = id;
+            objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+            objectInputStream = new ObjectInputStream(client.getInputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 	
+	// metodo di comunicazione dell'id
 	public void comunicaID() {
 		try {
 			objectOutputStream.writeObject(id);
@@ -65,7 +67,7 @@ public class ServerThread implements Runnable {
 				int comandoDalClient = (int)objectInputStream.readObject(); //ottiene aggiornamenti player
 				System.out.println("Ricevuto il comando " + comandoDalClient);
 
-				BomberManServer.campo.aggiornaPlayer(id, comandoDalClient);
+				BomberManServer.campo.aggiornaPlayer(id, comandoDalClient); //aggiornamento dei player con i loro id e i loro comandi
 				//System.out.println("Invio il campo a " + id);
 				objectOutputStream.writeObject(BomberManServer.campo); //invia il campo al client
 				System.out.println("Inviato il campo a: " + id);
@@ -89,6 +91,7 @@ public class ServerThread implements Runnable {
 				loopCounter = 0;
 			}
 			try {
+				 //minimo delay durante la partita per evitare sovraccaricamenti alal cpu
 				Thread.sleep(100);
 			} catch (InterruptedException ex) {
 				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,6 +108,7 @@ public class ServerThread implements Runnable {
 			Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+    
  
 	public String playersToString() {
 		String str = "";
