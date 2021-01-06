@@ -10,6 +10,8 @@ import java.io.Serializable;
 public class Bomb extends Elemento implements Serializable {
 	int range = 2;
 	
+        //la bomba ha un range iniziale (della sua esplosione) di 2
+        //il range può aumentare tramite l'ottenimento dell'abilità range
 	public Bomb(int range) {
 		this.range = range;
 	}

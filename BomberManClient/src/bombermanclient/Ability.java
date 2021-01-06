@@ -10,6 +10,7 @@ package bombermanclient;
  *
  * @author Alexander.Perathoner
  */
+//instanziazione enum delle abilità del giocatore e della bomba.
 public enum Ability {
     SPEED, 
     RANGE,

@@ -7,6 +7,7 @@ package bomberman;
 
 import java.io.Serializable;
 
+//instanziazione enum delle abilità del giocatore e della bomba.
 public enum Ability implements Serializable {
     SPEED, 
     RANGE,

@@ -7,6 +7,7 @@ package bomberman;
 
 import java.io.Serializable;
 
+//classe che identifica il pavimento in assenza di blocchi
 public class Pavimento extends Elemento implements Serializable {
 
 }
