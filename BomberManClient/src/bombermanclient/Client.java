@@ -57,11 +57,10 @@ public class Client implements Runnable {
 	public void inviaComando(int n) {
 		try {
 			objectOutputStream.writeObject(n);
-			System.out.println("Inviato n " + n);
 		} catch (IOException ex) {
-			System.out.println("OPS ERRORE IN INVIA COMANDO");
+			System.out.println("ERRORE in invia comando");
 		}
-	} 
+	}
 	
 	public void printCampo(Campo c) {
 		Elemento[][] griglia = c.getGriglia();
@@ -76,34 +75,50 @@ public class Client implements Runnable {
 	}
 	
 	public void iniziaAggiornamentoCampo() {
+		boolean errore = false;
 		do {
 			//ottieni campo aggiornato
 			try {
-				Sandbox.campo = (Campo) objectInputStream.readObject();
+				Campo newCampo = (Campo) objectInputStream.readObject();
+				if(newCampo != null) {
+					if(!newCampo.equals(Sandbox.campo)) {
+						System.out.println("Il campo è cambiato!");
+					Sandbox.campo = newCampo;
+					}
+				
+					System.out.println(Sandbox.campo.getPlayers()[playerID].getX() + " " + Sandbox.campo.getPlayers()[playerID].getY());
+				
+				}
 				//System.out.println("Campo ottenuto");
 				
 			} catch (IOException ex) {
-				System.out.println("Connessione persa");
+				System.out.println("Connessione persa" + ex.getMessage());
+				errore = true;
 			} catch (ClassNotFoundException ex) {
 				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+				errore = true;
 			}
 			
 			//aspetta
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException ex) {
 				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			//invia aggiornamenti al server
 			inviaComando(GestoreInput.gestisciMovimentiPlayer());
-		} while(Sandbox.playerIsAlive(playerID));
+		} while(!Sandbox.playersWon() && !errore);
+		
+		if(Sandbox.playersWon()) {
+			BomberManClient.vittoria = true;
+			Sandbox.campo = null;
+		}
 		
 		try{
 			miosocket.close();
 		} catch (IOException ex) {
 			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		BomberManClient.vivo = false;
 	}
 
 	@Override

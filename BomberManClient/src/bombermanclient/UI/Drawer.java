@@ -6,13 +6,16 @@
 package bombermanclient.UI;
 
 import bomberman.*;
+import bombermanclient.BomberManClient;
 import bombermanclient.Constants;
 import bombermanclient.Sandbox;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 
 /**
  *
@@ -22,12 +25,9 @@ public class Drawer {
 	static private GraphicsContext gc;
 	
 	static private void drawRectangle(Rectangle rect){
-		gc.fillRect(rect.getX(),      
-					rect.getY(), 
-					rect.getWidth(), 
-					rect.getHeight());
 		gc.setFill(rect.getFill());
 		gc.setStroke(rect.getStroke());
+		gc.fillRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 	}
 	
 	static private Paint getElementoFill(Elemento e) {
@@ -39,18 +39,16 @@ public class Drawer {
 			} else {
 				colore = Color.BLACK;
 			}
-		} else if(e.getClass() == Bomb.class) {
-			colore = Color.ORANGE;
 		}
 		return colore;
 	}
 	
 	static private Paint getElementoStroke(Elemento e) {
-		Paint colore = Color.WHITE;
+		Paint colore;
 		if(e.getClass() == Blocco.class) {
 			colore = Color.BLACK;
-		} else if(e.getClass() == Bomb.class) {
-			colore = Color.RED;
+		} else {
+			colore = Color.WHITE;
 		}
 		return colore;
 	}
@@ -63,14 +61,29 @@ public class Drawer {
 	}
 	
 	static public void drawCampo(Campo c) {
-		gc = Sandbox.getGraphicsContext();		
-		//disegno lo sfondo
+		gc = Sandbox.getGraphicsContext();
 		if(c != null) {
-			drawPlayers(c.getPlayers());
 			drawGriglia(c.getGriglia());
+			drawPlayers(c.getPlayers());
 		} else {
-			System.out.println("Il campo è null!");
+			if(BomberManClient.vittoria) {
+				drawSchermata("I giocatori hanno vinto!");
+			} else {
+				drawSchermata("Aspettando che si connettano gli altri giocatori...");
+			}
 		}
+	}
+	
+	static private void drawSchermata(String text) {
+        GraphicsContext gc = Sandbox.getCanvas().getGraphicsContext2D();
+		gc.setFill(Color.BLACK);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
+        gc.fillText(
+            text, 
+            Math.round(Constants.width  / 2), 
+            Math.round(Constants.height / 2)
+        );
 	}
 	
 	static private void drawGriglia(Elemento[][] griglia) {
@@ -80,38 +93,36 @@ public class Drawer {
 		for(int i=0; i<rows; i++) {
 			for(int j=0; j<columns; j++) {
 				//disegno un blocco nello spazio corrispondente
-				if(j==12) {
-					drawElemento(i*Constants.blockDimension, j*Constants.blockDimension, griglia[(j+1)%columns][(i+1)%rows]);
-				} else {
-					drawElemento(i*Constants.blockDimension, j*Constants.blockDimension, griglia[(j+1)%columns][i]);
-				}
+				drawElemento(i*Constants.blockDimension, j*Constants.blockDimension, griglia[i][j]);
 			}
 		}
 	}
 	
 	static private void drawPlayers(Player[] players) {
-		Node[] nodes = new Node[players.length];
 		for(int i=0; i<players.length; i++) {
 			drawPlayer(players[i]);
 		}
 	}
 	
 	static private void drawPlayer(Player p) {
-		Rectangle border = new Rectangle(p.getX(), p.getY(), Constants.blockDimension, Constants.blockDimension);
-		Color color = Color.RED;
-		switch(p.getId()) {
+		Color color;
+		int id = p.getId();
+		switch (id) {
+			case 0:
+				color = Color.RED;
+				break;
 			case 1:
 				color = Color.BLUE;
 				break;
 			case 2:
 				color = Color.GREEN;
 				break;
-			case 3:
+			default:
 				color = Color.YELLOW;
+				break;
 		}
-		
-		border.setFill(color);
-		drawRectangle(border);
+		gc.setFill(color);
+		gc.fillRoundRect(p.getX()*Constants.blockDimension, p.getY()*Constants.blockDimension, Constants.blockDimension, Constants.blockDimension, 15, 15);
 	}
 	
 	

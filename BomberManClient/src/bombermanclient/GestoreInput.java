@@ -32,10 +32,7 @@ public class GestoreInput {
 			comando = 3;
         }
 		
-        //bomba
-        if(keyboardInputs.contains(KeyCode.SPACE)){
-			comando = 5;
-        }
+		keyboardInputs.clear();
 		return comando;
     }
 

@@ -5,6 +5,8 @@
  */
 package bombermanserver;
 
+import bomberman.Campo;
+import bomberman.Player;
 import java.io.BufferedReader;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
@@ -56,17 +58,19 @@ public class ServerThread implements Runnable {
 				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		} while(!BomberManServer.partitaIniziata);
+		int loopCounter = 0;
 		do {
 			try {
-				System.out.println("Aspetto comando dal client...");
+				//System.out.println("Aspetto comando dal client...");
 				int comandoDalClient = (int)objectInputStream.readObject(); //ottiene aggiornamenti player
-				System.out.println("Ricevuto il comando " + comandoDalClient);
-				
-				BomberManServer.aggiornaPlayer(id, comandoDalClient);
-				System.out.println("Invio il campo a " + id);
+				//System.out.println("Ricevuto il comando " + comandoDalClient);
+
+				BomberManServer.campo.aggiornaPlayer(id, comandoDalClient);
+				//System.out.println("Invio il campo a " + id);
 				objectOutputStream.writeObject(BomberManServer.campo); //invia il campo al client
 				
-				System.out.println("Inviato il campo");
+				
+				//System.out.println("Inviato il campo a: " + id);
 			} catch (IOException ex) {
 				System.out.println("Il client ha chiuso la connessione con ili server!");
 				error = true;
@@ -76,11 +80,18 @@ public class ServerThread implements Runnable {
 			} catch (ClassNotFoundException ex) {
 				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
 			}
+			//Ogni 7 secondi il campo viene rigenerato. I player rimangono nelle stesse posizioni
+			if(loopCounter >= 70) {
+				System.out.println("Genero un nuovo campo!");
+				BomberManServer.campo = new Campo(BomberManServer.campo);
+				loopCounter = 0;
+			}
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException ex) {
 				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
 			}
+			loopCounter++;
 		} while(!BomberManServer.partitaFinita || error);
 		
 		if(!error) {

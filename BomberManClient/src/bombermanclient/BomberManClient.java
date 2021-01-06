@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class BomberManClient extends Application {
 	
-	static boolean vivo = true;
+	public static boolean vittoria = false;
 	
 	@Override
 	public void start(Stage primaryStage) {

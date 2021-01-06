@@ -20,6 +20,10 @@ import javafx.scene.paint.Color;
  */
 public class Sandbox {
 	static Campo campo;
+static Player[] players;
+	public Sandbox() {
+	}
+
     static Scene s;
     static Group root;
     static Canvas c;
@@ -41,15 +45,22 @@ public class Sandbox {
         GestoreEventi.attachEventHandlers(s);
 	}
 	
-	public static Player getPlayer(int id) throws NullPointerException {
-		if(!playerIsAlive(id)) {
-			throw new NullPointerException("Il player con l'id inserito non è più vivo");
-		}
+	public static Player getPlayer(int id) {
 		return campo.getPlayers()[id];
 	}
 	
-	public static boolean playerIsAlive(int id) {
-		return campo.getPlayers()[id] != null;
+	public static boolean playersWon() {
+		if(getPlayers().length < 2) {
+			return false;
+		}
+		for(int i=0; i<getPlayers().length-1;i++) {
+			Player p1 = getPlayers()[i];
+			Player p2 = getPlayers()[i+1];
+			if(p1.getX() != p2.getX() || p1.getY() != p2.getY()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public static Player[] getPlayers() {

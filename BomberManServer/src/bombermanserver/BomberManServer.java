@@ -7,6 +7,7 @@ package bombermanserver;
 
 import java.util.Random;
 import bomberman.Campo;
+import bomberman.Elemento;
 import javafx.scene.paint.Color;
 
 public class BomberManServer {
@@ -21,34 +22,26 @@ public class BomberManServer {
 	public static void main(String[] args) {
 		Server s=new Server(6789);
         //aspetto che si connettano tutti i player
-		int nPlayer = 1;
+		int nPlayer = 2;
 		s.attendi(nPlayer);
 		partitaIniziata = true;
 		System.out.println(nPlayer + " player si sono connessi! Inizia la partita!");
 		campo = new Campo(13, 13, nPlayer);
+		printCampo(campo);
 		System.out.println("Costruito il campo");
 	}
 	
-	static void aggiornaPlayer(int id, int azione) {
-		switch(azione) {
-			case 1:
-				campo.movePlayerUp(id);
-				break;
-			case 2:
-				campo.movePlayerDown(id);
-				break;
-			case 3:
-				campo.movePlayerRight(id);
-				break;
-			case 4:
-				campo.movePlayerLeft(id);
-				break;
-			case 5:
-				campo.piazzaBomba(id);
-				break;
-			default:
-				System.out.println("Azione nulla - Ignoro...");
+	public static void printCampo(Campo c) {
+		Elemento[][] griglia = c.getGriglia();
+		System.out.println("GRIGLIA");
+		for(int i=0; i<griglia.length; i++) {
+			for(int j=0;j<griglia[0].length; j++) {
+				System.out.print("{" + griglia[i][j].getClass() + "}");
+			}
+			System.out.println("");
 		}
+		System.out.println("FINE GRIGLIA");
 	}
+	
 	
 }

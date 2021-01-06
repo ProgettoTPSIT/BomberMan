@@ -30,11 +30,7 @@ public class GestoreEventi {
     }
 
     public boolean isKeyDown(KeyCode k) {
-    	if( inputList.contains(k)){
-    		return true;
-        }else{
-            return false;
-        }
+		return inputList.contains(k);
     }
     
     public static List getInputList(){
@@ -51,8 +47,8 @@ class keyReleaseHanlder implements javafx.event.EventHandler<KeyEvent>{
 
         KeyCode code = evt.getCode();
 
-        if ( GestoreEventi.inputList.contains(code) )
-        	GestoreEventi.inputList.remove( code );
+        /*if ( GestoreEventi.inputList.contains(code) )
+        	GestoreEventi.inputList.remove( code );*/
     }
 }
 class keyPressedHandler implements javafx.event.EventHandler<KeyEvent>{
@@ -62,7 +58,7 @@ class keyPressedHandler implements javafx.event.EventHandler<KeyEvent>{
         KeyCode code = evt.getCode();
         
         // only add once... prevent duplicates
-        if ( !GestoreEventi.inputList.contains(code) )
-        	GestoreEventi.inputList.add( code );
+        //if ( !GestoreEventi.inputList.contains(code) )
+		GestoreEventi.inputList.add( code );
     }
 }
