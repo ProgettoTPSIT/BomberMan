@@ -13,12 +13,16 @@ import javafx.scene.input.KeyCode;
  *
  * @author alex
  */
+//classe di gestione dei tasti premuti
 public class GestoreInput {
 
     public static int gestisciMovimentiPlayer(){
+        //crezione lista degli input da tastiera
         List keyboardInputs = GestoreEventi.getInputList();
-		int comando = 0;
+	int comando = 0;
         //movimenti
+        //assegnazione del comando da inviare al server in base al tasto premuto sulla tastiera
+        //WASD - tasti di movimento
         if(keyboardInputs.contains(KeyCode.UP) || keyboardInputs.contains(KeyCode.W)){
 			comando = 1;
         }
@@ -32,7 +36,7 @@ public class GestoreInput {
 			comando = 3;
         }
 		
-        //bomba
+        //piazzamento bomba
         if(keyboardInputs.contains(KeyCode.SPACE)){
 			comando = 5;
         }

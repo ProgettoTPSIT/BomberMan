@@ -15,6 +15,7 @@ import javafx.scene.canvas.GraphicsContext;
  *
  * @author alex
  */
+//classe che permette il continuo aggiornamento della scena di gioco
 public class GameLoop {
 
     static double currentGameTime;
@@ -28,18 +29,18 @@ public class GameLoop {
 
 	
     public static void start(GraphicsContext gc) {
-		System.out.println("Started Gameloop");
+	System.out.println("Started Gameloop");
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-            	oldGameTime = currentGameTime;
-            	currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
-            	deltaTime = currentGameTime - oldGameTime;
+                oldGameTime = currentGameTime;
+                currentGameTime = (currentNanoTime - startNanoTime) / 1000000000.0;
+                deltaTime = currentGameTime - oldGameTime;
                 gc.clearRect(0, 0, Constants.width, Constants.height);
                 renderGame();
             }
         }.start();
     }
-
+    //calcolo del tempo utilizzato
     public static double getDeltaTime() {
     	return deltaTime * 100;
     }

@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
  *
  * @author ashish.padalkar
  */
+//classe della gestione dei tasti premuti per il gioco
 public class GestoreEventi {
     public static char lastKeyPress;
     public static char lastKeyReleased;
@@ -31,7 +32,7 @@ public class GestoreEventi {
 
     public boolean isKeyDown(KeyCode k) {
     	if( inputList.contains(k)){
-    		return true;
+            return true;
         }else{
             return false;
         }
