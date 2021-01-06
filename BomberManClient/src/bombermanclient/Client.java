@@ -7,17 +7,17 @@ package bombermanclient;
 
 import bomberman.*;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 
 public class Client implements Runnable {
 	private String indirizzoServer;
