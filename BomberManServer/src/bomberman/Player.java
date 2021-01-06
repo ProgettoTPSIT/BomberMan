@@ -16,74 +16,76 @@ public class Player implements Serializable {
     int speed;
     int nBombsLimit;
     int range;
-	int x, y;
-	int id;
+    int x, y;
+    int id;
 	
-	public Player(int x, int y, int id) {
-		this.x = x;
-		this.y = y;
-		this.speed = 0;
-		this.nBombsLimit = 1;
-		this.id = id;
-	}
-	
-	public void upgrade(Ability ability) {
-		switch(ability) {
-			case RANGE:
-				range++;
-				break;
-			case NBOMBS:
-				nBombsLimit++;
-				break;
-			case SPEED:
-				speed++;
-				break;
-		}
-	}
+    public Player(int x, int y, int id) {
+            this.x = x;
+            this.y = y;
+            this.speed = 0;
+            this.nBombsLimit = 1;
+            this.id = id;
+    }
 
-	public int getSpeed() {
-		return speed;
-	}
+    //metodo che aumenta le statistiche del player se trova le abilità nei blocchi
+    public void upgrade(Ability ability) {
+        //switch case con le varie abilità
+            switch(ability) {
+                    case RANGE:
+                            range++;
+                            break;
+                    case NBOMBS:
+                            nBombsLimit++;
+                            break;
+                    case SPEED:
+                            speed++;
+                            break;
+            }
+    }
 
-	public int getnBombsLimit() {
-		return nBombsLimit;
-	}
+    public int getSpeed() {
+            return speed;
+    }
 
-	public int getRange() {
-		return range;
-	}
+    public int getnBombsLimit() {
+            return nBombsLimit;
+    }
 
-	public int getX() {
-		return x;
-	}
+    public int getRange() {
+            return range;
+    }
 
-	public int getY() {
-		return y;
-	}
+    public int getX() {
+            return x;
+    }
 
-	public int getId() {
-		return id;
-	}
-	
-	public void moveUp() {
-		y++;
-	}
-	public void moveDown() {
-		y--;
-	}
-	public void moveRight() {
-		x++;
-	}
-	public void moveLeft() {
-		x--;
-	}
+    public int getY() {
+            return y;
+    }
 
-	private void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	
-	private int getTimeToSleep() {
-		return timeToSleep-(speed*50);
-	}
+    public int getId() {
+            return id;
+    }
+
+    public void moveUp() {
+            y++;
+    }
+    public void moveDown() {
+            y--;
+    }
+    public void moveRight() {
+            x++;
+    }
+    public void moveLeft() {
+            x--;
+    }
+
+    private void setPosition(int x, int y) {
+            this.x = x;
+            this.y = y;
+    }
+
+    private int getTimeToSleep() {
+            return timeToSleep-(speed*50);
+    }
 }

@@ -6,7 +6,7 @@
 package bomberman;
 
 import java.io.Serializable;
-
+//classe che accomuna tutti gli elementi del gioco
 public class Elemento implements Serializable {
 	
 }

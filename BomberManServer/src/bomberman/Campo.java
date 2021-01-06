@@ -14,26 +14,27 @@ public class Campo implements Serializable { //Serializable necessario per invia
 	Elemento[][] griglia;
 	Player[] player;
 	
+        //creazione campo da gioco
 	public Campo(int rows, int columns, int nPlayer) {
-		griglia = new Elemento[rows][columns];
-		player = new Player[nPlayer];
-		Random r = new Random();
-		for(int i=0; i<rows; i++) {
-			for(int j=0; j<columns; j++) {
-				Elemento b = new Pavimento();
-				//tutti i blocchi che si trovano su una colonna e riga dispari devono essere indistruttibili
-				if ((i%2==1) && (j%2==1)) {
-					b = new Blocco(false);
-					System.out.println("Blocco: " + i + " " + j);
-				} else { //se non mi trovo sull'intersezione
-					if(r.nextDouble() < 0.3) { //nel 50% dei casi aggiungo un blocco distruttibile
-						b = new Blocco(true); 
-					}
-				}
-				griglia[i][j] = b;
-			}
-		}
-		posizionaPlayer();
+            griglia = new Elemento[rows][columns];
+            player = new Player[nPlayer];
+            Random r = new Random();
+            for(int i=0; i<rows; i++) {
+                for(int j=0; j<columns; j++) {
+                    Elemento b = new Pavimento();
+                    //tutti i blocchi che si trovano su una colonna e riga dispari devono essere indistruttibili
+                    if ((i%2==1) && (j%2==1)) {
+                        b = new Blocco(false);
+                        System.out.println("Blocco: " + i + " " + j);
+                    } else { //se non mi trovo sull'intersezione
+                        if(r.nextDouble() < 0.3) { //nel 50% dei casi aggiungo un blocco distruttibile
+                            b = new Blocco(true); 
+                        }
+                    }
+                    griglia[i][j] = b;
+                }
+            }
+            posizionaPlayer();
 	}
 	
 	
@@ -50,63 +51,68 @@ public class Campo implements Serializable { //Serializable necessario per invia
 	}
 	
 	Ability distruggiBlocco(int x, int y) {
-		if(x<0 || x>=griglia.length) {
-			return null;
-		}
-		if(y<0 || y>=griglia[0].length) {
-			return null;
-		}
-		Elemento elem = griglia[x][y];
-		Ability a = null;
-		if(elem != null) {
-			if(elem.getClass() == Blocco.class) {
-				if(((Blocco) elem).distruttibile) {
-					griglia[x][y] = new Pavimento();
-					a = ((Blocco) elem).ability;
-				}
-			}
-		}
-		return a;
+            //controllo che il blocco da distruggere non sia oltre o il limite della mappa
+            if(x<0 || x>=griglia.length) {
+                return null;
+            }
+            if(y<0 || y>=griglia[0].length) {
+                return null;
+            }
+            //creo un elemento e lo istanzio con le corrdinate del blocco da distuggere
+            Elemento elem = griglia[x][y];
+            Ability a = null;
+            //controllo che ci sia effettivamente elemento da distuggere
+            if(elem != null) {
+                //controllo che l'elemento da distruggere sia un blocco
+                if(elem.getClass() == Blocco.class) {
+                    if(((Blocco) elem).distruttibile) {
+                        //se è distruttibile lo distruggo
+                        griglia[x][y] = new Pavimento();
+                        a = ((Blocco) elem).ability;
+                    }
+                }
+            }
+            return a;
 	}
 	
 	public void piazzaBomba(int id) {
-		Player p = player[id];
-		Bomb bomb = new Bomb(p.range);
-		griglia[p.x][p.y] = bomb;
-		//la bomba esplode dopo 4s
-		new java.util.Timer().schedule(
-			new java.util.TimerTask() {
-				@Override
-				public void run() {
-					//scorriamo le abbilità ottenute dall'esplossione dei blocchi intorno alla bomba
-					for (Ability abilitaOttenuta : esplosioneBomba(p.x, p.y, bomb.range/2)) {
-						p.upgrade(abilitaOttenuta);
-					}
-				}
-			},
-			4000
-		);
+            Player p = player[id];
+            Bomb bomb = new Bomb(p.range);
+            griglia[p.x][p.y] = bomb;
+            //la bomba esplode dopo 4s
+            new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        //scorriamo le abbilità ottenute dall'esplossione dei blocchi intorno alla bomba
+                        for (Ability abilitaOttenuta : esplosioneBomba(p.x, p.y, bomb.range/2)) {
+                            p.upgrade(abilitaOttenuta);
+                        }
+                    }
+                },
+                4000
+            );
 	}
 	
 	ArrayList<Ability> esplosioneBomba(int x, int y, int raggio) {
-		ArrayList<Ability> abilitaOttenute = null;
-		for(int i=x-raggio; i<x+raggio; i++) {
-			for(int j=y-raggio; j<y+raggio; i++) {
-				//distruggiamo i blocchi intorno alla bomba
-				// otteniamo le abilita contenute nei blocchi
-				abilitaOttenute.add(distruggiBlocco(i, j)); 
-				
-				//verifichiamo se è stato ucciso un player
-				for(int id=0; id<player.length; i++) {
-					Player p = player[id];
-					if(p.x == i && p.y == j) {
-						System.out.println("Un player è stato colpito da una bomba!");
-						muore(id);
-					}
-				}
-			}
-		}
-		return abilitaOttenute;
+            ArrayList<Ability> abilitaOttenute = null;
+            for(int i=x-raggio; i<x+raggio; i++) {
+                for(int j=y-raggio; j<y+raggio; i++) {
+                    //distruggiamo i blocchi intorno alla bomba
+                    // otteniamo le abilita contenute nei blocchi
+                    abilitaOttenute.add(distruggiBlocco(i, j)); 
+
+                    //verifichiamo se è stato ucciso un player
+                    for(int id=0; id<player.length; i++) {
+                        Player p = player[id];
+                        if(p.x == i && p.y == j) {
+                            System.out.println("Un player è stato colpito da una bomba!");
+                            muore(id);
+                        }
+                    }
+                }
+            }
+            return abilitaOttenute;
 	}
 	
 	void muore(int id) {
@@ -123,6 +129,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		}
 	}
 	
+        //metodi di movimento del player con i relativi controlli
 	public void movePlayerDown(int id) {
 		Player p = player[id];
 		if(p.y==0) {
@@ -153,6 +160,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		}
 	}
 	
+        //metodo posizionamento player all'inizio del gioco
 	public void posizionaPlayer() {
 		int[][] angoli = {{0,0},{0,12},{12,12},{12,0}};
 		for(int n=0;n<player.length;n++) {

@@ -6,7 +6,7 @@
 package bomberman;
 
 import java.io.Serializable;
-
+//classe bomba con il suo range di esplosione
 public class Bomb extends Elemento implements Serializable {
 	int range = 2;
 	

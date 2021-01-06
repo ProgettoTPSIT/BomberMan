@@ -29,7 +29,7 @@ public class Blocco extends Elemento implements Serializable {
         //array di tipo ability con tutte le abilità
         Ability[] allAbilities = {Ability.NBOMBS, Ability.RANGE, Ability.SPEED, Ability.NONE, Ability.NONE, Ability.NONE}; //6 blocchi ogni 16 hanno un'abilità
         Random rand = new Random();
-        //metodo che ritorna un abilità random che si va a scegliere nell'array
+        //metodo che restituisce un abilità random che si va a scegliere nell'array
         return allAbilities[rand.nextInt(allAbilities.length)]; //generiamo un numero casuale tra 0 e 2 compresi e prendiamo l'abilità corrispondente
     }
 	
