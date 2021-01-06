@@ -8,6 +8,7 @@ package bomberman;
 import java.io.Serializable;
 import java.util.Random;
 
+//gestione classe blocco
 public class Blocco extends Elemento implements Serializable {
     boolean distruttibile;
 
