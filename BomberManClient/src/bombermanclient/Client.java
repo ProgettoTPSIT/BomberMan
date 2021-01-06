@@ -17,7 +17,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdk.nashorn.internal.runtime.JSType;
+
 
 public class Client implements Runnable {
 	private String indirizzoServer;
