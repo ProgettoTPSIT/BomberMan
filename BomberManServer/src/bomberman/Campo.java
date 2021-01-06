@@ -23,11 +23,11 @@ public class Campo implements Serializable { //Serializable necessario per invia
 				Elemento b = new Pavimento();
 				//tutti i blocchi che si trovano su una colonna e riga dispari devono essere indistruttibili
 				if ((i%2==1) && (j%2==1)) {
-					b = new Blocco(true);
+					b = new Blocco(false);
 					System.out.println("Blocco: " + i + " " + j);
 				} else { //se non mi trovo sull'intersezione
-					if(r.nextDouble() < 0.5) { //nel 50% dei casi aggiungo un blocco distruttibile
-						b = new Blocco(false); 
+					if(r.nextDouble() < 0.3) { //nel 50% dei casi aggiungo un blocco distruttibile
+						b = new Blocco(true); 
 					}
 				}
 				griglia[i][j] = b;

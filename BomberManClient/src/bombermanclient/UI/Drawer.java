@@ -7,14 +7,9 @@ package bombermanclient.UI;
 
 import bomberman.*;
 import bombermanclient.Constants;
-import bombermanclient.GameLoop;
 import bombermanclient.Sandbox;
-import com.sun.media.jfxmedia.events.PlayerEvent;
-import java.util.ArrayList;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -40,9 +35,9 @@ public class Drawer {
 		if(e.getClass() == Blocco.class) {
 			Blocco b = (Blocco) e;
 			if(b.getDistruttibile()) {
-				colore = Color.BLACK;
-			} else {
 				colore = Color.GREY;
+			} else {
+				colore = Color.BLACK;
 			}
 		} else if(e.getClass() == Bomb.class) {
 			colore = Color.ORANGE;
@@ -71,8 +66,8 @@ public class Drawer {
 		gc = Sandbox.getGraphicsContext();		
 		//disegno lo sfondo
 		if(c != null) {
-			drawGriglia(c.getGriglia());
 			drawPlayers(c.getPlayers());
+			drawGriglia(c.getGriglia());
 		} else {
 			System.out.println("Il campo è null!");
 		}
@@ -102,11 +97,7 @@ public class Drawer {
 	}
 	
 	static private void drawPlayer(Player p) {
-		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
-		border.setStroke(Color.BLACK);
-		border.setTranslateX(p.getX());
-		border.setTranslateY(p.getY());
-		
+		Rectangle border = new Rectangle(p.getX(), p.getY(), Constants.blockDimension, Constants.blockDimension);
 		Color color = Color.RED;
 		switch(p.getId()) {
 			case 1:
