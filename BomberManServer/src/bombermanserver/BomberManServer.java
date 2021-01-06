@@ -12,43 +12,44 @@ import javafx.scene.paint.Color;
 public class BomberManServer {
 
     static Campo campo;
-	static boolean partitaIniziata = false;
-	static boolean partitaFinita = false;
+    static boolean partitaIniziata = false;
+    static boolean partitaFinita = false;
 	
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
-		Server s=new Server(6789);
+    public static void main(String[] args) {
+        Server s=new Server(6789);
         //aspetto che si connettano tutti i player
-		int nPlayer = 1;
-		s.attendi(nPlayer);
-		partitaIniziata = true;
-		System.out.println(nPlayer + " player si sono connessi! Inizia la partita!");
-		campo = new Campo(13, 13, nPlayer);
-		System.out.println("Costruito il campo");
-	}
+        int nPlayer = 1;
+        s.attendi(nPlayer);
+        partitaIniziata = true;
+        System.out.println(nPlayer + " player si sono connessi! Inizia la partita!");
+        //creazione campo
+        campo = new Campo(13, 13, nPlayer);
+        System.out.println("Costruito il campo");
+    }
 	
-	static void aggiornaPlayer(int id, int azione) {
-		switch(azione) {
-			case 1:
-				campo.movePlayerUp(id);
-				break;
-			case 2:
-				campo.movePlayerDown(id);
-				break;
-			case 3:
-				campo.movePlayerRight(id);
-				break;
-			case 4:
-				campo.movePlayerLeft(id);
-				break;
-			case 5:
-				campo.piazzaBomba(id);
-				break;
-			default:
-				System.out.println("Azione nulla - Ignoro...");
-		}
-	}
+    //aggiornamento mosse dei player
+    static void aggiornaPlayer(int id, int azione) {
+        //switch case che in base all'azione del player modifica la sua posizione/il campo
+        //quindi invai una richiesta di modifica al server
+        switch(azione) {
+            case 1:
+                campo.movePlayerUp(id);
+                break;
+            case 2:
+                campo.movePlayerDown(id);
+                break;
+            case 3:
+                campo.movePlayerRight(id);
+                break;
+            case 4:
+                campo.movePlayerLeft(id);
+                break;
+            case 5:
+                campo.piazzaBomba(id);
+                break;
+            default:
+                System.out.println("Azione nulla - Ignoro...");
+        }
+    }
 	
 }
