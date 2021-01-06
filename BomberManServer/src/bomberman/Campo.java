@@ -42,7 +42,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 					b = new Blocco(false);
 					//System.out.println("Blocco: " + i + " " + j);
 				} else { //se non mi trovo sull'intersezione
-					if(r.nextDouble() < 0.3) { //nel 50% dei casi aggiungo un blocco distruttibile
+					if(r.nextDouble() < 0.22) { //nel 22% dei casi aggiungo un blocco distruttibile
 						b = new Blocco(true); 
 					}
 				}
@@ -152,7 +152,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 	}
 	
 	public void posizionaPlayer() {
-		int[][] angoli = {{0,0},{0,12},{12,12},{12,0}};
+		int[][] angoli = {{0,0},{0,griglia[0].length-1},{griglia.length-1,griglia[0].length-1},{griglia.length-1,0}};
 		for(int n=0;n<player.length;n++) {
 			//rimuoviaom i blocchi distruttibili intorno ai player
 			int x = angoli[n][0];
@@ -166,4 +166,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		}
 	}
 	
+	public void setPlayers(Player[] player) {
+		this.player = player;
+	}
 }	

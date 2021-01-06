@@ -35,9 +35,6 @@ public class Server {
 					System.out.println("Fatto partire il thread");
 					playerConnessi++;
                 }
-               
-				System.out.println("Pronto per far iniziare la partita!");
-                
             } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }

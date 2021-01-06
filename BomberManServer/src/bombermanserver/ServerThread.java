@@ -63,16 +63,18 @@ public class ServerThread implements Runnable {
 			try {
 				//System.out.println("Aspetto comando dal client...");
 				int comandoDalClient = (int)objectInputStream.readObject(); //ottiene aggiornamenti player
-				//System.out.println("Ricevuto il comando " + comandoDalClient);
+				System.out.println("Ricevuto il comando " + comandoDalClient);
 
 				BomberManServer.campo.aggiornaPlayer(id, comandoDalClient);
 				//System.out.println("Invio il campo a " + id);
 				objectOutputStream.writeObject(BomberManServer.campo); //invia il campo al client
+				System.out.println("Inviato il campo a: " + id);
+				String str = playersToString();
+				System.out.println(str);
+				objectOutputStream.writeObject(str);
 				
-				
-				//System.out.println("Inviato il campo a: " + id);
 			} catch (IOException ex) {
-				System.out.println("Il client ha chiuso la connessione con ili server!");
+				System.out.println("Il client ha chiuso la connessione con il server!");
 				error = true;
 			} catch (NullPointerException ex) {
 				System.out.println("ERROR: Persa la connessione con il client");
@@ -80,8 +82,8 @@ public class ServerThread implements Runnable {
 			} catch (ClassNotFoundException ex) {
 				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
 			}
-			//Ogni 7 secondi il campo viene rigenerato. I player rimangono nelle stesse posizioni
-			if(loopCounter >= 70) {
+			//Ogni 5 secondi il campo viene rigenerato. I player rimangono nelle stesse posizioni
+			if(loopCounter >= 50) {
 				System.out.println("Genero un nuovo campo!");
 				BomberManServer.campo = new Campo(BomberManServer.campo);
 				loopCounter = 0;
@@ -104,5 +106,11 @@ public class ServerThread implements Runnable {
 		}
 	}
  
-	
+	public String playersToString() {
+		String str = "";
+		for(Player p : BomberManServer.campo.getPlayers()) {
+			str += ""+p.getX()+"-"+p.getY()+"#";
+		}
+		return str;
+	}
 }

@@ -81,15 +81,16 @@ public class Client implements Runnable {
 			try {
 				Campo newCampo = (Campo) objectInputStream.readObject();
 				if(newCampo != null) {
+					Constants.blockDimension = Constants.width/newCampo.getGriglia().length;
 					if(!newCampo.equals(Sandbox.campo)) {
 						System.out.println("Il campo è cambiato!");
-					Sandbox.campo = newCampo;
+						Sandbox.campo = newCampo;
 					}
-				
-					System.out.println(Sandbox.campo.getPlayers()[playerID].getX() + " " + Sandbox.campo.getPlayers()[playerID].getY());
-				
 				}
-				//System.out.println("Campo ottenuto");
+				//per un qualche motivo inviare i player direttamente nel campo non funziona
+				//inviandoli separatamente...
+				String players = (String)objectInputStream.readObject();
+				Sandbox.campo.setPlayers(parsePlayers(players));
 				
 			} catch (IOException ex) {
 				System.out.println("Connessione persa" + ex.getMessage());
@@ -133,5 +134,18 @@ public class Client implements Runnable {
 		System.out.println("Chiedo campo");
 		
 		iniziaAggiornamentoCampo();
+	}
+	
+	Player[] parsePlayers(String str) {
+		String[] s = str.split("#");
+		Player[] pl = new Player[s.length];
+		
+		for(int i=0; i<s.length; i++) {
+		    String[] ss = s[i].split("-");
+		    int x = Integer.parseInt(ss[0]);
+		    int y = Integer.parseInt(ss[1]);
+			pl[i] = new Player(x, y, i);
+		}
+		return pl;
 	}
 }

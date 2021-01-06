@@ -165,5 +165,9 @@ public class Campo implements Serializable { //Serializable necessario per invia
 			player[n] = new Player(x, y, n);
 		}
 	}
+
+	public void setPlayers(Player[] player) {
+		this.player = player;
+	}
 	
 }	

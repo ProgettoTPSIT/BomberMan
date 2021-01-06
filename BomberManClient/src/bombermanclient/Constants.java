@@ -11,7 +11,7 @@ package bombermanclient;
  */
 
 public class Constants {
-	public static int width = 650;
-	public static int height = 650;
-	public static int blockDimension = 50; 
+	public static int width = 989;
+	public static int height = 713;
+	public static int blockDimension; 
 }
