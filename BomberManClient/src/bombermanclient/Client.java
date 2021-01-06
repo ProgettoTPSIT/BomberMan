@@ -5,7 +5,7 @@
  */
 package bombermanclient;
 
-import bomberman.Campo;
+import bomberman.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -50,7 +50,7 @@ public class Client implements Runnable {
 	public void ottieniID() {
 		try {
 			playerID = (int)objectInputStream.readObject();
-			System.out.println("Ho ottenuto iD");
+			//System.out.println("Ho ottenuto iD");
 		} catch (IOException ex) {
 			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (ClassNotFoundException ex) {
@@ -67,12 +67,24 @@ public class Client implements Runnable {
 		}
 	} 
 	
+	public void printCampo(Campo c) {
+		Elemento[][] griglia = c.getGriglia();
+		System.out.println("GRIGLIA");
+		for(int i=0; i<griglia.length; i++) {
+			for(int j=0;j<griglia[0].length; j++) {
+				System.out.print("{" + griglia[i][j].getClass() + "}");
+			}
+			System.out.println("");
+		}
+		System.out.println("FINE GRIGLIA");
+	}
+	
 	public void iniziaAggiornamentoCampo() {
 		do {
 			//ottieni campo aggiornato
 			try {
-				BomberManClient.campo = (Campo) objectInputStream.readObject();
-				System.out.println("Campo ottenuto");
+				Sandbox.campo = (Campo) objectInputStream.readObject();
+				//System.out.println("Campo ottenuto");
 				
 			} catch (IOException ex) {
 				System.out.println("Connessione persa");
@@ -87,8 +99,8 @@ public class Client implements Runnable {
 				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			//invia aggiornamenti al server
-			inviaComando(0);
-		} while(playerIsAlive());
+			inviaComando(GestoreInput.gestisciMovimentiPlayer());
+		} while(Sandbox.playerIsAlive(playerID));
 		
 		try{
 			miosocket.close();
@@ -96,14 +108,6 @@ public class Client implements Runnable {
 			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		BomberManClient.vivo = false;
-	}
-	
-	private boolean playerIsAlive() {
-		if (BomberManClient.campo == null) { //campo non ancora caricato
-			return true;
-		}
-		//return AggiornaClient.campo.player[playerID] != null;
-		return true;
 	}
 
 	@Override

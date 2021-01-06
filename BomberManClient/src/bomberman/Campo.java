@@ -22,7 +22,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 			for(int j=0; j<columns; j++) {
 				Elemento b = new Pavimento();
 				//tutti i blocchi che si trovano su una colonna e riga dispari devono essere indistruttibili
-				if ((i%2==1) && (j%2==1)) {
+				if ((i%2==1) && (j%2==0)) {
 					b = new Blocco(true);
 				} else { //se non mi trovo sull'intersezione
 					if(r.nextDouble() < 0.66) { //nel 66% dei casi aggiungo un blocco distruttibile

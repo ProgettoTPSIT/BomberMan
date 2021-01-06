@@ -7,11 +7,16 @@ package bombermanclient.UI;
 
 import bomberman.*;
 import bombermanclient.Constants;
+import bombermanclient.GameLoop;
+import bombermanclient.Sandbox;
 import com.sun.media.jfxmedia.events.PlayerEvent;
 import java.util.ArrayList;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -19,77 +24,84 @@ import javafx.scene.shape.Rectangle;
  * @author alex
  */
 public class Drawer {
-	static private Node drawBlocco(Blocco b) {
-		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
-		border.setStroke(Color.BLACK);
-		if(b.getDistruttibile()) {
-			border.setFill(Color.BLACK);
-		} else {
-			border.setFill(Color.GREY);
-		}
-		return (border);
+	static private GraphicsContext gc;
+	
+	static private void drawRectangle(Rectangle rect){
+		gc.fillRect(rect.getX(),      
+					rect.getY(), 
+					rect.getWidth(), 
+					rect.getHeight());
+		gc.setFill(rect.getFill());
+		gc.setStroke(rect.getStroke());
 	}
 	
-	static private Node drawBomb(Bomb b) {
-		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
-		border.setStroke(Color.RED);
-		border.setFill(Color.ORANGE);
-		return (border);
-	}
-	
-	static private Node drawPavimento(Pavimento p) {
-		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
-		border.setStroke(null);
-		border.setFill(Color.WHITE);
-		return (border);
-	}
-	
-	static private Node drawElemento(Elemento e) {
-		Node node;
+	static private Paint getElementoFill(Elemento e) {
+		Paint colore = Color.WHITE;
 		if(e.getClass() == Blocco.class) {
-			node = drawBlocco((Blocco) e);
+			Blocco b = (Blocco) e;
+			if(b.getDistruttibile()) {
+				colore = Color.BLACK;
+			} else {
+				colore = Color.GREY;
+			}
 		} else if(e.getClass() == Bomb.class) {
-			node = drawBomb((Bomb) e);
+			colore = Color.ORANGE;
+		}
+		return colore;
+	}
+	
+	static private Paint getElementoStroke(Elemento e) {
+		Paint colore = Color.WHITE;
+		if(e.getClass() == Blocco.class) {
+			colore = Color.BLACK;
+		} else if(e.getClass() == Bomb.class) {
+			colore = Color.RED;
+		}
+		return colore;
+	}
+	
+	static private void drawElemento(int x, int y, Elemento e) {
+		Rectangle border = new Rectangle(x, y, Constants.blockDimension, Constants.blockDimension);
+		border.setFill(getElementoFill(e));
+		border.setStroke(getElementoStroke(e));
+		drawRectangle(border);
+	}
+	
+	static public void drawCampo(Campo c) {
+		gc = Sandbox.getGraphicsContext();		
+		//disegno lo sfondo
+		if(c != null) {
+			drawGriglia(c.getGriglia());
+			drawPlayers(c.getPlayers());
 		} else {
-			node = drawPavimento((Pavimento) e);
+			System.out.println("Il campo è null!");
 		}
-		return node;
 	}
 	
-	static public StackPane drawCampo(Campo c) {
-		StackPane sp = drawGriglia(c.getGriglia());
-		for(Node n : drawPlayers(c.getPlayers())) {
-			sp.getChildren().add(n);
-		}
-		
-		return sp;
-	}
-	
-	static private StackPane drawGriglia(Elemento[][] griglia) {
+	static private void drawGriglia(Elemento[][] griglia) {
 		int rows = griglia.length;
 		int columns = griglia[0].length;
-		Rectangle border = new Rectangle(Constants.blockDimension*rows, Constants.blockDimension*columns);
-		border.setStroke(Color.BLACK);
-		StackPane sp = new StackPane(border);
-		ArrayList<Node> nodes = null;
+		
 		for(int i=0; i<rows; i++) {
 			for(int j=0; j<columns; j++) {
-				Node drawElemento = Drawer.drawElemento(griglia[i][j]);
-				sp.getChildren().add(drawElemento);
+				//disegno un blocco nello spazio corrispondente
+				if(j==12) {
+					drawElemento(i*Constants.blockDimension, j*Constants.blockDimension, griglia[(j+1)%columns][(i+1)%rows]);
+				} else {
+					drawElemento(i*Constants.blockDimension, j*Constants.blockDimension, griglia[(j+1)%columns][i]);
+				}
 			}
 		}
-		return sp;
 	}
 	
-	static private Node[] drawPlayers(Player[] players) {
+	static private void drawPlayers(Player[] players) {
 		Node[] nodes = new Node[players.length];
 		for(int i=0; i<players.length; i++) {
-			nodes[i] = drawPlayer(players[i]);
+			drawPlayer(players[i]);
 		}
-		return nodes;
 	}
 	
-	static private Node drawPlayer(Player p) {
+	static private void drawPlayer(Player p) {
 		Rectangle border = new Rectangle(Constants.blockDimension, Constants.blockDimension);
 		border.setStroke(Color.BLACK);
 		border.setTranslateX(p.getX());
@@ -108,7 +120,7 @@ public class Drawer {
 		}
 		
 		border.setFill(color);
-		return border;
+		drawRectangle(border);
 	}
 	
 	

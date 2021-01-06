@@ -21,32 +21,19 @@ import javafx.stage.Stage;
 
 public class BomberManClient extends Application {
 	
-	static Campo campo;
-    private Pane root = new Pane();
 	static boolean vivo = true;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Bomberman!");
-		primaryStage.setScene(new Scene(root, Constants.width, Constants.height));
+		Sandbox.setupScene();
+        Scene s = Sandbox.getScene();
+        primaryStage.setScene(s);
 		primaryStage.show();
 		
         Client c=new Client("127.0.0.1", 6789);
 		Thread t = new Thread(c);
 		t.start();
-		
-		
-		while(BomberManClient.vivo) {
-			root.getChildren().removeAll();
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ex) {
-				Logger.getLogger(BomberManClient.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			if(campo != null) {
-				root.getChildren().add(Drawer.drawCampo(campo));
-			}
-		}
 	}
 	
 

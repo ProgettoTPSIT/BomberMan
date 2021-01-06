@@ -24,8 +24,9 @@ public class Campo implements Serializable { //Serializable necessario per invia
 				//tutti i blocchi che si trovano su una colonna e riga dispari devono essere indistruttibili
 				if ((i%2==1) && (j%2==1)) {
 					b = new Blocco(true);
+					System.out.println("Blocco: " + i + " " + j);
 				} else { //se non mi trovo sull'intersezione
-					if(r.nextDouble() < 0.66) { //nel 66% dei casi aggiungo un blocco distruttibile
+					if(r.nextDouble() < 0.5) { //nel 50% dei casi aggiungo un blocco distruttibile
 						b = new Blocco(false); 
 					}
 				}

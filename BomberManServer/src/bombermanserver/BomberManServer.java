@@ -21,7 +21,7 @@ public class BomberManServer {
 	public static void main(String[] args) {
 		Server s=new Server(6789);
         //aspetto che si connettano tutti i player
-		int nPlayer = 2;
+		int nPlayer = 1;
 		s.attendi(nPlayer);
 		partitaIniziata = true;
 		System.out.println(nPlayer + " player si sono connessi! Inizia la partita!");
