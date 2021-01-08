@@ -11,7 +11,6 @@ package labirintmanclient;
  */
 import labirintman.Campo;
 import labirintman.Player;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

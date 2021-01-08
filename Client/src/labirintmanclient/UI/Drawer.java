@@ -14,7 +14,6 @@ import labirintmanclient.LabirintManClient;
 import labirintmanclient.Constants;
 import labirintmanclient.Sandbox;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;

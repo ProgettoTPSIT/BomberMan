@@ -10,7 +10,6 @@ package labirintmanclient;
  * @author Rizzi
  */
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 
 /**

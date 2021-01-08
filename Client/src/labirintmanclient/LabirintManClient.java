@@ -9,14 +9,9 @@ package labirintmanclient;
  *
  * @author Rizzi
  */
-import labirintman.Campo;
-import labirintmanclient.UI.Drawer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**

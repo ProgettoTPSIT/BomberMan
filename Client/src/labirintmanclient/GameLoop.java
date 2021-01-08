@@ -10,8 +10,6 @@ package labirintmanclient;
  * @author Rizzi
  */
 import labirintmanclient.UI.Drawer;
-import java.util.Iterator;
-import java.util.Vector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 

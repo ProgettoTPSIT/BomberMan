@@ -10,7 +10,6 @@ package labirintman;
  * @author Rizzi
  */
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Campo implements Serializable { //Serializable necessario per inviare l'oggetto con writeObject ai client
