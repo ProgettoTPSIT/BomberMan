@@ -12,6 +12,7 @@ package labirintmanserver;
 import labirintman.Campo;
 import labirintman.Elemento;
 import labirintman.Player;
+import java.lang.Math;
 
 public class LabirintManServer {
 
@@ -23,7 +24,7 @@ public class LabirintManServer {
         Server s=new Server(6789);
         //aspetto che si connettano tutti i player
 		int nPlayer = 4;
-		campo = new Campo(43, 31, nPlayer);
+		campo = new Campo(11, 7, nPlayer);
 		//printCampo(campo);
 		//System.out.println("Costruito il campo");
 		s.attendi(nPlayer);
@@ -43,19 +44,24 @@ public class LabirintManServer {
 		System.out.println("FINE GRIGLIA");
 	}
         
-        public static boolean playersWon() {
+        public static int playersWon() {
+            int x,y;
+            x=Math.round(campo.getGriglia().length/2-1);
+            y=Math.round(campo.getGriglia()[0].length/2-1);
             Player[] p = campo.getPlayers();
 		if(p.length < 2) {
-			return false;
+                    return -1;
 		}
-		for(int i=0; i<p.length-1;i++) {
-			Player p1 = p[i];
-			Player p2 = p[i+1];
-			if(p1.getX() != p2.getX() || p1.getY() != p2.getY()) {
-				return false;
-			}
-		}
-		return true;
+                //se il player è alla posizione del tesoro, allora ha vinto
+                for(int i=0;i<p.length;i++){
+                    Player pi=p[i];
+                    if(pi.getY()==y && pi.getX()==x){
+                        return i;
+                    }
+                }
+                return -1;
+
+		
 	}
 	
 	

@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.Math;
 //<<<<<<< HEAD
 
 
@@ -119,11 +120,12 @@ public class Client implements Runnable {
 			}
 			//invia aggiornamenti al server
 			inviaComando(GestoreInput.gestisciMovimentiPlayer());
-		} while(!Sandbox.playersWon() && !errore);
+		} while(Sandbox.playersWon()==-1 && !errore);
 		
-		if(Sandbox.playersWon()) {
-			LabirintManClient.vittoria = true;
-			Sandbox.campo = null;
+                LabirintManClient.finita = true;
+		if(Sandbox.playersWon()==playerID) {
+                    LabirintManClient.vittoria = true;
+                    Sandbox.campo = null;
 		}
 		
 		try{

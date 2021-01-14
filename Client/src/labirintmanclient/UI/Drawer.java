@@ -69,8 +69,12 @@ public class Drawer {
 			drawGriglia(c.getGriglia());
 			drawPlayers(c.getPlayers());
 		} else {
-			if(LabirintManClient.vittoria) {
-				drawSchermata("I giocatori hanno vinto!");
+			if(LabirintManClient.finita) {
+                            if(LabirintManClient.vittoria){
+                                drawSchermata("Hai vinto!");
+                            } else {
+                                drawSchermata("Hai perso eheheheh");
+                            }	
 			} else {
 				drawSchermata("Aspettando che si connettano gli altri giocatori...");
 			}
@@ -99,7 +103,20 @@ public class Drawer {
 				drawElemento(i*Constants.blockDimension, j*Constants.blockDimension, griglia[i][j]);
 			}
 		}
+                //coloriamo il tesoro nel campo
+                drawTesoro(rows, columns);
 	}
+
+        private void drawTesoro(int rows, int columns){
+  
+            int x,y;
+            x=Math.round(rows/2-1);
+            y=Math.round(columns/2-1);
+            Rectangle border = new Rectangle(x, y, Constants.blockDimension, Constants.blockDimension);
+            border.setFill(Color.ORANGE);
+            border.setStroke(Color.ORANGE);
+            drawRectangle(border);
+        }
 	
 	static private void drawPlayers(Player[] players) {
 		for(int i=0; i<players.length; i++) {

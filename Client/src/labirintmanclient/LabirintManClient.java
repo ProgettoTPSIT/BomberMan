@@ -13,6 +13,7 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.lang.Math;
 
 /**
  *
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 public class LabirintManClient extends Application {
 	
 	public static boolean vittoria = false;
+        public static boolean finita = false;
 	
 	@Override
 	public void start(Stage primaryStage) {

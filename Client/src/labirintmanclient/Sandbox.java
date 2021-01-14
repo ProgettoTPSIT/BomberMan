@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import java.lang.Math;
 
 /**
  *
@@ -50,18 +51,22 @@ public class Sandbox {
 		return campo.getPlayers()[id];
 	}
 	
-	public static boolean playersWon() {
-		if(getPlayers().length < 2) {
-			return false;
+	public static int playersWon() {
+            int x,y;
+            x=Math.round(campo.getGriglia().length/2-1);
+            y=Math.round(campo.getGriglia()[0].length/2-1);
+            Player[] p = campo.getPlayers();
+		if(p.length < 2) {
+                    return -1;
 		}
-		for(int i=0; i<getPlayers().length-1;i++) {
-			Player p1 = getPlayers()[i];
-			Player p2 = getPlayers()[i+1];
-			if(p1.getX() != p2.getX() || p1.getY() != p2.getY()) {
-				return false;
-			}
-		}
-		return true;
+                //se il player è alla posizione del tesoro, allora ha vinto
+                for(int i=0;i<p.length;i++){
+                    Player pi=p[i];
+                    if(pi.getY()==y && pi.getX()==x){
+                        return i;
+                    }
+                }
+                return -1;	
 	}
 	
         //restituisce i player in un array

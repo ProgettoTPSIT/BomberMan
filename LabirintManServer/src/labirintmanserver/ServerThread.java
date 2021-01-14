@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import labirintman.Campo;
 import labirintman.Player;
+import java.lang.Math;
 
 //classe serverThread default
 public class ServerThread implements Runnable {
@@ -99,7 +100,8 @@ public class ServerThread implements Runnable {
 				Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			loopCounter++;
-		} while(!LabirintManServer.playersWon() || error);
+		} while((LabirintManServer.playersWon() == -1) || error);
+                LabirintManServer.campo.setWinner(id);
         //inviamo l'ultimo aggiornamento ai client per fargli apparire la schermata di fine game    
         try {
             int comandoDalClient = (int)objectInputStream.readObject();

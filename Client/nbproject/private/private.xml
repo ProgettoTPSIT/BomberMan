@@ -3,19 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/Sandbox.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintman/Campo.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/Client.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintman/Elemento.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/GameLoop.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/GestoreInput.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/LabirintManClient.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintman/Pavimento.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintman/Blocco.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/GestoreEventi.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/Constants.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintmanclient/UI/Drawer.java</file>
-            <file>file:/Users/alex/AppsMine/BomberMan/Client/src/labirintman/Player.java</file>
+            <file>file:/D:/BOMBERMAN/BomberMan/Client/src/labirintman/Campo.java</file>
+            <file>file:/D:/BOMBERMAN/BomberMan/Client/src/labirintmanclient/Sandbox.java</file>
+            <file>file:/D:/BOMBERMAN/BomberMan/Client/src/labirintman/Pavimento.java</file>
+            <file>file:/D:/BOMBERMAN/BomberMan/Client/src/labirintman/Elemento.java</file>
+            <file>file:/D:/BOMBERMAN/BomberMan/Client/src/labirintmanclient/Constants.java</file>
         </group>
     </open-files>
 </project-private>

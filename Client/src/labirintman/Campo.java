@@ -10,16 +10,26 @@ package labirintman;
  * @author Rizzi
  */
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Campo implements Serializable { //Serializable necessario per inviare l'oggetto con writeObject ai client
 	Elemento[][] griglia;
 	Player[] player;
+        int winner;
 	
 	public Campo(Campo c) {
 		player = c.getPlayers();
 		commonInit(c.griglia.length, c.griglia[0].length);
 	}
+
+        public int getWinner(){
+            return winner;
+        }
+
+        public void setWinner(int winner){
+            this.winner=winner;
+        }
 	
 	public Campo(int rows, int columns, Player[] players) {
 		player = players;
@@ -53,6 +63,11 @@ public class Campo implements Serializable { //Serializable necessario per invia
 				griglia[i][j] = b;
 			}
 		}
+                //togliamo il blocco per lasiare spazio al tesoro
+                int x=Math.round(griglia.length/2-1);
+                int y=Math.round(griglia[0].length/2-1);
+                griglia[x][y]=new Pavimento();
+                //togliamo i blocchi per lasciare spazio ai player
 		for(Player p : player) {
 			if(p != null) {
 				distruggiBlocco(p.getX(), p.getY());
@@ -63,8 +78,8 @@ public class Campo implements Serializable { //Serializable necessario per invia
 	
 	public void setGriglia(Elemento[][] campo) {
 		griglia = campo;
-	}
-	
+        }
+
 	public Elemento[][] getGriglia() {
 		return griglia;
 	}
@@ -182,3 +197,4 @@ public class Campo implements Serializable { //Serializable necessario per invia
 	}
 	
 }	
+
