@@ -40,20 +40,20 @@ public class Client implements Runnable {
         
 	//connessione client al server
 	public void connetti() {
-            try {
-                miosocket=new Socket(indirizzoServer,porta);
-                objectOutputStream = new ObjectOutputStream(miosocket.getOutputStream());
-                objectInputStream = new ObjectInputStream(miosocket.getInputStream());
-            } catch (IOException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            }
+		try {
+			miosocket=new Socket(indirizzoServer,porta);
+			objectOutputStream = new ObjectOutputStream(miosocket.getOutputStream());
+			objectInputStream = new ObjectInputStream(miosocket.getInputStream());
+		} catch (IOException ex) {
+			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 	
         //metodo ottenimento id
 	public void ottieniID() {
 		try {
-                    playerID = (int)objectInputStream.readObject();
-                    //System.out.println("Ho ottenuto iD");
+			playerID = (int)objectInputStream.readObject();
+			//System.out.println("Ho ottenuto iD");
 		} catch (IOException ex) {
 			Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (ClassNotFoundException ex) {
@@ -122,12 +122,12 @@ public class Client implements Runnable {
 			inviaComando(GestoreInput.gestisciMovimentiPlayer());
 		} while(Sandbox.playersWon()==-1 && !errore);
 		
-                LabirintManClient.finita = true;
+		LabirintManClient.finita = true;
 		if(Sandbox.playersWon()==playerID) {
-                    LabirintManClient.vittoria = true;
-                    Sandbox.campo = null;
+			LabirintManClient.vittoria = true;
 		}
 		
+		Sandbox.campo = null;
 		try{
 			miosocket.close();
 		} catch (IOException ex) {

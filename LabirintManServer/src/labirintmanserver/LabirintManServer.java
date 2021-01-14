@@ -24,7 +24,7 @@ public class LabirintManServer {
         Server s=new Server(6789);
         //aspetto che si connettano tutti i player
 		int nPlayer = 4;
-		campo = new Campo(11, 7, nPlayer);
+		campo = new Campo(43, 31, nPlayer);
 		//printCampo(campo);
 		//System.out.println("Costruito il campo");
 		s.attendi(nPlayer);
@@ -44,22 +44,22 @@ public class LabirintManServer {
 		System.out.println("FINE GRIGLIA");
 	}
         
-        public static int playersWon() {
-            int x,y;
-            x=Math.round(campo.getGriglia().length/2-1);
-            y=Math.round(campo.getGriglia()[0].length/2-1);
-            Player[] p = campo.getPlayers();
+	public static int playersWon() {
+		int x,y;
+		x=Math.round(campo.getGriglia().length/2);
+		y=Math.round(campo.getGriglia()[0].length/2);
+		Player[] p = campo.getPlayers();
 		if(p.length < 2) {
-                    return -1;
+			return -1;
 		}
-                //se il player è alla posizione del tesoro, allora ha vinto
-                for(int i=0;i<p.length;i++){
-                    Player pi=p[i];
-                    if(pi.getY()==y && pi.getX()==x){
-                        return i;
-                    }
-                }
-                return -1;
+		//se il player è alla posizione del tesoro, allora ha vinto
+		for(int i=0;i<p.length;i++){
+			Player pi=p[i];
+			if(pi.getY()==y && pi.getX()==x){
+				return i;
+			}
+		}
+		return -1;
 
 		
 	}

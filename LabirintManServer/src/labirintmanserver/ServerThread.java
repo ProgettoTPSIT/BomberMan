@@ -101,7 +101,6 @@ public class ServerThread implements Runnable {
 			}
 			loopCounter++;
 		} while((LabirintManServer.playersWon() == -1) || error);
-                LabirintManServer.campo.setWinner(id);
         //inviamo l'ultimo aggiornamento ai client per fargli apparire la schermata di fine game    
         try {
             int comandoDalClient = (int)objectInputStream.readObject();

@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import java.lang.Math;
 
 /**
  *
@@ -52,34 +51,34 @@ public class Sandbox {
 	}
 	
 	public static int playersWon() {
-            int x,y;
-            x=Math.round(campo.getGriglia().length/2-1);
-            y=Math.round(campo.getGriglia()[0].length/2-1);
-            Player[] p = campo.getPlayers();
+		int x,y;
+		x=Math.round(campo.getGriglia().length/2);
+		y=Math.round(campo.getGriglia()[0].length/2);
+		Player[] p = campo.getPlayers();
 		if(p.length < 2) {
-                    return -1;
+			return -1;
 		}
-                //se il player è alla posizione del tesoro, allora ha vinto
-                for(int i=0;i<p.length;i++){
-                    Player pi=p[i];
-                    if(pi.getY()==y && pi.getX()==x){
-                        return i;
-                    }
-                }
-                return -1;	
+		//se il player è alla posizione del tesoro, allora ha vinto
+		for(int i=0;i<p.length;i++){
+			Player pi=p[i];
+			if(pi.getY()==y && pi.getX()==x){
+				return i;
+			}
+		}
+		return -1;	
 	}
 	
         //restituisce i player in un array
 	public static Player[] getPlayers() {
-            return campo.getPlayers();
+		return campo.getPlayers();
 	}
 	
 	//setta la finstra di gioco
 	public static void setupScene() {
-            if(!sceneStarted){
-                init();
-                sceneStarted=true;
-            }
+		if(!sceneStarted){
+			init();
+			sceneStarted=true;
+		}
 	}
 	
     public static Scene getScene() {

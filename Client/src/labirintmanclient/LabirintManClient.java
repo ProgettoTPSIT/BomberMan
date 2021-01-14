@@ -5,41 +5,37 @@
  */
 package labirintmanclient;
 
-/**
- *
- * @author Rizzi
- */
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.lang.Math;
 
 /**
  *
  * @author alex
+ * @author Rizzi
  */
 
 public class LabirintManClient extends Application {
 	
 	public static boolean vittoria = false;
-        public static boolean finita = false;
+	public static boolean finita = false;
 	
 	@Override
 	public void start(Stage primaryStage) {
-            //creazione finestra di gioco con titolo "Bomberman"
-            primaryStage.setTitle("Bomberman!");
-            //settaggio scena di gioco
-            Sandbox.setupScene();
-            //creazione oggetto s contenente la scena di gioco
-            Scene s = Sandbox.getScene();
-            primaryStage.setScene(s);
-            primaryStage.show();
-		
-            //creazione client 
-            Client c=new Client("127.0.0.1", 6789);
-            Thread t = new Thread(c);
-            t.start();
+		//creazione finestra di gioco con titolo "Labirintman"
+		primaryStage.setTitle("Labirintman!");
+		//settaggio scena di gioco
+		Sandbox.setupScene();
+		//creazione oggetto s contenente la scena di gioco
+		Scene s = Sandbox.getScene();
+		primaryStage.setScene(s);
+		primaryStage.show();
+
+		//creazione client 
+		Client c=new Client("127.0.0.1", 6789);
+		Thread t = new Thread(c);
+		t.start();
 	}
 	
 

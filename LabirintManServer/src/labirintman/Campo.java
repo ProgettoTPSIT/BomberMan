@@ -16,20 +16,11 @@ import java.util.Random;
 public class Campo implements Serializable { //Serializable necessario per inviare l'oggetto con writeObject ai client
 	Elemento[][] griglia;
 	Player[] player;
-        int winner;
 	
 	public Campo(Campo c) {
 		player = c.getPlayers();
 		commonInit(c.griglia.length, c.griglia[0].length);
 	}
-
-        public int getWinner(){
-            return winner;
-        }
-
-        public void setWinner(int winner){
-            this.winner=winner;
-        }
 	
 	public Campo(int rows, int columns, Player[] players) {
 		player = players;
@@ -63,11 +54,11 @@ public class Campo implements Serializable { //Serializable necessario per invia
 				griglia[i][j] = b;
 			}
 		}
-                //togliamo il blocco per lasiare spazio al tesoro
-                int x=Math.round(griglia.length/2-1);
-                int y=Math.round(griglia[0].length/2-1);
-                griglia[x][y]=new Pavimento();
-                //togliamo i blocchi per lasciare spazio ai player
+		//togliamo il blocco per lasiare spazio al tesoro
+		int x=Math.round(griglia.length/2);
+		int y=Math.round(griglia[0].length/2);
+		griglia[x][y]=new Pavimento();
+		//togliamo i blocchi per lasciare spazio ai player
 		for(Player p : player) {
 			if(p != null) {
 				distruggiBlocco(p.getX(), p.getY());
@@ -173,7 +164,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 		System.out.println("Posizione player "  + p.getX() + " " + (p.getY()));
 	}
 	
-        //metodo posizionamento player ad inizio game
+	//metodo posizionamento player ad inizio game
 	public void posizionaPlayer() {
                 //istanziamo in un varray le coordinate iniziali dove i player si creeranno
 		int[][] angoli = {{0,0},{0,griglia[0].length-1},{griglia.length-1,griglia[0].length-1},{griglia.length-1,0}};
@@ -182,7 +173,7 @@ public class Campo implements Serializable { //Serializable necessario per invia
 			int x = angoli[n][0];
 			int y = angoli[n][1];
 			for(int i=-1;i<2;i++) {
-                                //distruzione blocchi attorno ai punti di creazione dei player
+				//distruzione blocchi attorno ai punti di creazione dei player
 				for(int j=-1;j<2;j++) {
 					distruggiBlocco(x+i, y+j);
 				}
